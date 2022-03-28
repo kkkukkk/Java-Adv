@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원가입 페이지</title>
+</head>
+<body bgcolor="pink">
+	<form>
+		이름<br>
+		<input type="text" name="name" style="background-color:#F8EBD9"required>
+		<br>
+		생년월일<br>
+		<input type="datetime" name="birth date" style="background-color:#F8EBD9" required>
+		<br>
+		나이<br>
+		<input type="number" name="age" value="20" min="1" max="120" style="background-color:#F8EBD9" required>
+		<br>
+		<input type="radio" name="gender2" value="남" checked>남자 
+		<input type="radio" name="gender2" value="여">여자
+		<br>
+		전화번호<br>
+		<select name="phone" style="background-color:#83DFE8">
+			<option value="02">02</option>
+			<option value="010">010</option>
+			<option value="011">011</option>
+		</select>
+		<input type="tel" name="phone number" style="background-color:#F8EBD9" required> 
+		<br>
+		주소<br>
+		<select name="addr" style="background-color:#83DFE8">
+			<option value="서울">서울</option>
+			<option value="경기">경기</option>
+			<option value="충청">충청</option>
+			<option value="강원">강원</option>
+			<option value="경상">부산</option>
+		</select>
+		<input type="text" name="address" style="background-color:#F8EBD9" required>
+		<br>
+		자기소개<br>
+		<textarea name="comment" rows="10" cols="50" style="background-color:#F8EBD9" ></textarea>
+		<br> <br> 
+		<input type="reset"> <button style="background-color: yellow"> 제출 </button>
+	</form>
+</body>
+</html>
