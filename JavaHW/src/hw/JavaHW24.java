@@ -53,15 +53,15 @@ public class JavaHW24 {
 	}//메닫중
 	
 	
-	public static void main(String[] args) throws IOException{
+	public static void main(String[] args) throws IOException{ // 메인 메소드
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); // input을 위한 객체
 		System.out.print("N, M 공백으로 구분하여 입력 : ");
 		String[] mn = br.readLine().split(" ");		// 공백을 기준으로 String[] 배열
 		n = Integer.parseInt(mn[0]);				// 0번째 인덱스 n
 		m = Integer.parseInt(mn[1]);				// 1번째 인덱스 m
-		int[][] iceMold = makeIceMold();			// n X m 2차원 정수 배열
+		int[][] iceMold = makeIceMold();			// n X m 2차원 정수 배열 생성하는 메소드
 		int cnt = cntIce(iceMold);					// 얼음 개수를 세는 메소드
-		System.out.println(cnt);
+		System.out.println(cnt);					// 결과로 얻은 cnt값을 출력
 	}
 }
 
