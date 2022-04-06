@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>테이블 생성!</title>
 </head>
 <body>
 <%
@@ -13,7 +13,7 @@
 // JDBC 드라이버 로딩
    Class.forName("com.mysql.jdbc.Driver");
 // DB연결
-   String url = "jdbc:mysql://localhost:3306/school";
+   String url = "jdbc:mysql://localhost:3306/university";
    String id = "root";
    String pw = "0000";
    
@@ -23,11 +23,14 @@
    conn = DriverManager.getConnection(url, id, pw);
    
 // 테이블 만들기 SQL
-	String sql = "CREATE TABLE emp("
-			+"empnum int not null,"
+	String sql = "CREATE TABLE student("
+			+"hakbun int not null,"
 			+"name   varchar(10),"
+			+"gender varchar(10),"
+			+"year   tinyint,"
 			+"dept   varchar(20),"
-			+"primary key(empnum))";
+			+"addr   varchar(50),"
+			+"primary key(hakbun))";
 	
 	pstmt = conn.prepareStatement(sql);
    	pstmt.executeUpdate();
