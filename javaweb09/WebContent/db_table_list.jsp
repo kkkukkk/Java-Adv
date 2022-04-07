@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>학생 정보 출력</title>
 </head>
-<body>
+<body style="background-color:grey">
 	<!-- CSS only -->
 	<link
 		href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
