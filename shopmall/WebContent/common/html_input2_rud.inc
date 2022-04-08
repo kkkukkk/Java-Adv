@@ -1,4 +1,4 @@
-
+<% request.setCharacterEncoding("UTF-8"); %>
 <tr>
 <th>비밀번호</th>
 <td><input type="password" name="cust_pw" readonly></td>
@@ -6,7 +6,7 @@
 
 <tr>
 <th>%nbsp; 이름 %nbsp;</th>
-<td><input type="text" name="cust_name"</td>
+<td><input type="text" name="cust_name"></td>
 </tr>
 
 <tr>
@@ -39,7 +39,7 @@
 <tr>
 <th>&nbsp;이메일&nbsp;</th>
 <td><input type="text" name="cust_email_1" readonly>
-@<input type="text" name="cust_email_2 readonly>
+@<input type="text" name="cust_email_2" readonly>
 </td>
 </tr>
 
