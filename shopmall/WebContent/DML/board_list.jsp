@@ -18,7 +18,7 @@ ResultSet rset = null;
 
 conn = DbConnClose.getConnection();
 
-String sql = "SELECT * FROM board ORDER BY board_join_date DESC";
+String sql = "SELECT * FROM board ORDER BY board_id DESC";
 stmt = conn.createStatement();
 rset = stmt.executeQuery(sql);
 %>
