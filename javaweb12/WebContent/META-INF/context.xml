@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context>
-	<Resourse name="jdbc/dantalk"
+	<Resource name="jdbc/dantalk"
 		auth="Container"
 		type="javax.sql.DataSource"
 		driverClassName="com.mysql.jdbc.Driver"
@@ -9,5 +9,5 @@
 		password="0000"
 		maxTotal="16"
 		maxIdle="4"
-		maxWaitMills="-1"  />
+		maxWaitMillis="-1" />
 </Context>
