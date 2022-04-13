@@ -36,7 +36,7 @@
 		Date day = new Date();
 		int hour = day.getHours();
 		int minute = day.getMinutes();
-		int second = day.getMinutes();
+		int second = day.getSeconds();
 		
 		String CT = hour + ":" + minute + ":" + second;
 		out.print("접속 시각 : " + CT + "\n");
