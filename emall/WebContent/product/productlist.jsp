@@ -4,7 +4,7 @@
 	pageEncoding="UTF-8"%>
 <%
 	request.setCharacterEncoding("UTF-8");
-	String uid = (String) session.getAttribute("uid");
+	String uid = (String) session.getAttribute("id");
 	if(uid ==null){
 		response.sendRedirect("/user/login.jsp");
 		return;

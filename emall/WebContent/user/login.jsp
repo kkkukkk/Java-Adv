@@ -37,7 +37,7 @@
       
           
 <main class="form-signin">
-  <form action="logindb.jsp">
+  <form action="logindb.jsp" method="POST">
     <img class="mb-4" src="cats.jpg" alt="" width="200" height="200">
     <h1 class="h3 mb-3 fw-normal">로그인🔑</h1>
 
