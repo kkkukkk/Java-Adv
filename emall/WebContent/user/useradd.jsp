@@ -36,21 +36,21 @@
 				<div class="form-group row justify-content-center">
 					<label class="col-sm-2">아이디</label>
 					<div class="col-sm-5">
-						<input type="text" name="uid" class="form-control" required>
+						<input type="text" name="uid" class="form-control">
 					</div>
 				</div>
 
 				<div class="form-group row justify-content-center">
 					<label class="col-sm-2">비밀번호</label>
 					<div class="col-sm-5">
-						<input type="text" name="upw" class="form-control" required>
+						<input type="password" name="upw" class="form-control">
 					</div>
 				</div>
 
 				<div class="form-group row justify-content-center">
 					<label class="col-sm-2">이름</label>
 					<div class="col-sm-5">
-						<input type="text" name="uname" class="form-control" required>
+						<input type="text" name="uname" class="form-control">
 					</div>
 				</div>
 				
@@ -69,28 +69,28 @@
 				<div class="form-group row justify-content-center">
 					<label class="col-sm-2">생년월일</label>
 					<div class="col-sm-5">
-						<input type="text" name="ubirth" class="form-control" required>
+						<input type="text" name="ubirth" class="form-control">
 					</div>
 				</div>
 				
 				<div class="form-group row justify-content-center">
 					<label class="col-sm-2">이메일</label>
 					<div class="col-sm-5">
-						<input type="email" name="uemail" class="form-control" required>
+						<input type="email" name="uemail" class="form-control">
 					</div>
 				</div>
 				
 				<div class="form-group row justify-content-center">
 					<label class="col-sm-2">전화번호</label>
 					<div class="col-sm-5">
-						<input type="text" name="uphone" class="form-control" required>
+						<input type="text" name="uphone" class="form-control">
 					</div>
 				</div>
 				
 				<div class="form-group row justify-content-center">
 					<label class="col-sm-2">주소</label>
 					<div class="col-sm-5">
-						<input type="text" name="uaddr" class="form-control" required>
+						<input type="text" name="uaddr" class="form-control">
 					</div>
 				</div>
 				
