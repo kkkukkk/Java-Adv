@@ -1,7 +1,7 @@
 package jdbc;
 
 public class UserDTO {
-	
+
 	private String uid;
 	private String upw;
 	private String uname;
@@ -10,7 +10,8 @@ public class UserDTO {
 	private String uemail;
 	private String uphone;
 	private String uaddr;
-	private String uregidate;
+	private String uregiday;
+	
 	
 	public String getUid() {
 		return uid;
@@ -36,11 +37,13 @@ public class UserDTO {
 	public String getUaddr() {
 		return uaddr;
 	}
-	public String getUregidate() {
-		return uregidate;
+	public String getUregiday() {
+		return uregiday;
 	}
+	
+	
 	public UserDTO(String uid, String upw, String uname, String ugender, String ubirth, String uemail, String uphone,
-			String uaddr, String uregidate) {
+			String uaddr, String uregiday) {
 		super();
 		this.uid = uid;
 		this.upw = upw;
@@ -50,7 +53,10 @@ public class UserDTO {
 		this.uemail = uemail;
 		this.uphone = uphone;
 		this.uaddr = uaddr;
-		this.uregidate = uregidate;
+		this.uregiday = uregiday;
 	}
 
+
+	
+	
 }

@@ -10,7 +10,7 @@
     <div class="collapse navbar-collapse" id="navbarScroll">
       <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="productlist.jsp">상품목록</a>
+          <a class="nav-link active" aria-current="page" href="/product/productlist.jsp">상품목록</a>
         </li>
         
         <li class="nav-item dropdown">
@@ -18,10 +18,10 @@
             회원
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-            <li><a class="dropdown-item" href="#">로그인</a></li>
-            <li><a class="dropdown-item" href="#">로그아웃</a></li>
+            <li><a class="dropdown-item" href="/user/login.jsp">로그인</a></li>
+            <li><a class="dropdown-item" href="/user/logout.jsp">로그아웃</a></li>
             <li><a class="dropdown-item" href="#">주문목록</a></li>
-            <li><a class="dropdown-item" href="#">회원가입</a></li>
+            <li><a class="dropdown-item" href="/user/useradd.jsp">회원가입</a></li>
             <li><a class="dropdown-item" href="#">회원탈퇴</a></li>
           </ul>
         </li>

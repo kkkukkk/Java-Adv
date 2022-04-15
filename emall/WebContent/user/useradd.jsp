@@ -31,7 +31,7 @@
 		</div>
 		
 		<div class="container shadow mx-auto mt-5 p-5 w-75 rounded">
-			<form action="useradddb.jsp" method="post" enctype="multipart/form-data" align="center">
+			<form action="useradddb.jsp" method="post" align="center">
 				
 				<div class="form-group row justify-content-center">
 					<label class="col-sm-2">아이디</label>
