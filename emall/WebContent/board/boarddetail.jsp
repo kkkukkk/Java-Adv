@@ -1,6 +1,18 @@
 <%@page import="jdbc.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%
+	request.setCharacterEncoding("UTF-8");
+	String uid = (String) session.getAttribute("id");
+	if(uid ==null){
+		response.sendRedirect("/user/login.jsp");
+		return;
+	}//세션 정보를 확인해서 로그인 상태인지 확인한 후 진입 허용
+
+%>    
+    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,14 +51,14 @@
 	
 	<div class="shadow mx-auto mt-5 p-5 w-75 rounded">
 	<div class = "row">
-	<div class = "col-ma-5">
-		<img src="" style="width:100%">
-	</div>
 	<div class = "col-ma-6">
 		<h3><%=board.getBtitle() %></h3>
 		<h5><%=board.getBuser() %></h5>
 		<p><%=board.getBcontent() %>
 		<p><%=board.getBdate()%>
+	<div class = "col-ma-5">
+		<img src="/images/<%=board.getBimage()%>" style="width:100%">
+	</div>
 
 		<br><br>
 		<a href="" class="btn btn-info">좋아요👍</a>

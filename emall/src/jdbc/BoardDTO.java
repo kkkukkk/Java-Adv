@@ -7,14 +7,16 @@ public class BoardDTO {
 	private String bcontent;
 	private String buser;
 	private String bdate;
+	private String bimage;
 	
-	public BoardDTO(String bid, String btitle, String bcontent, String buser, String bdate) {
+	public BoardDTO(String bid, String btitle, String bcontent, String buser, String bdate, String bimage) {
 		super();
 		this.bid = bid;
 		this.btitle = btitle;
 		this.bcontent = bcontent;
 		this.buser = buser;
 		this.bdate = bdate;
+		this.bimage = bimage;
 	}
 	public String getBid() {
 		return bid;
@@ -31,6 +33,8 @@ public class BoardDTO {
 	public String getBdate() {
 		return bdate;
 	}
-	
+	public String getBimage() {
+		return bimage;
+	}
 	
 }

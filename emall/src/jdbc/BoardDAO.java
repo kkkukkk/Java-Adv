@@ -1,6 +1,7 @@
 package jdbc;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.naming.NamingException;
 import util.ConnectionPool;
@@ -28,7 +29,8 @@ public class BoardDAO {
 													rs.getString("btitle"),
 													rs.getString("bcontent"),
 													rs.getString("buser"),
-													rs.getString("bdate")));
+													rs.getString("bdate"),
+													rs.getString("bimage")));
 					}
 					return boards;
 					
@@ -62,8 +64,9 @@ public class BoardDAO {
 					String bcontent = rs.getString(3);
 					String buser = rs.getString(4);
 					String bdate = rs.getString(5);
+					String bimage = rs.getString(6);
 					
-					BoardDTO board = new BoardDTO(id,btitle,bcontent,buser,bdate);
+					BoardDTO board = new BoardDTO(id,btitle,bcontent,buser,bdate,bimage);
 					
 					return board;
 					
@@ -72,6 +75,32 @@ public class BoardDAO {
 					if(pstmt != null) pstmt.close();
 					if(conn != null) conn.close();
 				}
+	}
+	
+	public boolean insert(String btitle, String bcontent, String buser, String bimage)
+	throws NamingException, SQLException {
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "INSERT INTO board VALUES (?,?,?,?,?,?)";
+			conn = ConnectionPool.get();
+			pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, 0);
+				pstmt.setString(2, btitle);
+				pstmt.setString(3, bcontent);
+				pstmt.setString(4, buser);
+				pstmt.setString(5, bimage);
+				pstmt.setString(6, LocalDate.now().toString());
+			int result = pstmt.executeUpdate();
+			
+			return (result==1) ? true : false;			
+			
+		} finally {
+			if(pstmt != null) pstmt.close();
+			if(conn != null) conn.close();
+		}
 	}
 	
 }

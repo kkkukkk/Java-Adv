@@ -1,5 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%
+	request.setCharacterEncoding("UTF-8");
+	String uid = (String) session.getAttribute("id");
+	if(uid ==null){
+		response.sendRedirect("/user/login.jsp");
+		return;
+	}//세션 정보를 확인해서 로그인 상태인지 확인한 후 진입 허용
+
+%>   
+    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,40 +47,40 @@
 		</div>
 	</div>
 	
-	<div class="container" style="padding-top:30px;">
+	<div class="container shadow mx-auto mt-5 p-5 w-75 rounded" style="padding-top:30px;">
      <form name="newProduct" class="form-horizontal"  action="boardwritedb.jsp" method="post" enctype="multipart/form-data" align="center">
-       <div class="form-group  row">
-          <label class="col-sm-2">제목</label>
-              <div class="col-sm-4">
-              <input name="title" type="text" class="form-control" placeholder="Enter the Title" >
-       </div>
-   </div>
-      <div class="form-group  row" style="display:none;">
-         <label class="col-sm-2">작성자</label>
-            <div class="col-sm-4">
-              <input name="id" type="text" class="form-control" value="test"placeholder="Enter the name" >
-      </div>
-   </div>
-      <div class="container" style="padding-top: 30px;">
-         <textarea id="summernote" name="editordata"></textarea>
+       <div class="form-group row">
+			<label class="col-sm-2"><h3><b>제목</b></h3></label>
+			<div class="col-sm-6">
+				<input type="text" name="btitle" class="form-control">
+			</div>
+		</div>
+      <br>     
+      <div class="form-group row">
+         <textarea id="summernote" name="bcontent"></textarea>
       </div>
 
-		<br>
-       <div class="form-group  row">
-            <label class="col-sm-2">첨부파일</label>
-            <div class="col-sm-4">
-               <input name="filename" type="file" class="form-control" >
-            </div>
-       </div>
+	  <br>
+      <div class="form-group row justify-content-center">
+			<div class="col-sm-8">
+  			<label for="formFileMultiple" class="form-label">사진 업로드 📷</label>
+  			<input class="form-control" name="bimages" type="file" id="formFileMultiple" multiple>
+			</div>
+		</div>
        
        <br>
-   <div class="col-sm-offset-5 col-sm-5">
-      <input type="submit" class="btn btn-dark" value="글쓰기 " > 
-       <input type="reset" class="btn btn-dark" value="취소" onclick="reset()" >
-   </div>
+  	 	<div class="form-group row justify-content-center">
+			<div class="col-sm-2">
+				<input type="submit" class="btn btn-dark form-control" value="등록">
+			</div>
+			<div class="col-sm-2">
+				<input type="reset" class="btn btn-dark form-control" value="취소">
+			</div>
+		</div>
    
      </form>
    </div>
+
 	
 
 <%@ include file="/_footer.jsp"%>
