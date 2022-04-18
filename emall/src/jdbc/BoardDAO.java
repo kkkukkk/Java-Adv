@@ -30,7 +30,8 @@ public class BoardDAO {
 													rs.getString("bcontent"),
 													rs.getString("buser"),
 													rs.getString("bdate"),
-													rs.getString("bimage")));
+													rs.getString("bimage"),
+													rs.getString("baddr")));
 					}
 					return boards;
 					
@@ -65,8 +66,9 @@ public class BoardDAO {
 					String buser = rs.getString(4);
 					String bdate = rs.getString(5);
 					String bimage = rs.getString(6);
+					String baddr = rs.getString(7);
 					
-					BoardDTO board = new BoardDTO(id,btitle,bcontent,buser,bdate,bimage);
+					BoardDTO board = new BoardDTO(id,btitle,bcontent,buser,bdate,bimage,baddr);
 					
 					return board;
 					
@@ -77,14 +79,14 @@ public class BoardDAO {
 				}
 	}
 	
-	public boolean insert(String btitle, String bcontent, String buser, String bimage)
+	public boolean insert(String btitle, String bcontent, String buser, String bimage, String baddr)
 	throws NamingException, SQLException {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "INSERT INTO board VALUES (?,?,?,?,?,?)";
+			String sql = "INSERT INTO board VALUES (?,?,?,?,?,?,?)";
 			conn = ConnectionPool.get();
 			pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, 0);
@@ -93,6 +95,7 @@ public class BoardDAO {
 				pstmt.setString(4, buser);
 				pstmt.setString(5, LocalDate.now().toString());
 				pstmt.setString(6, bimage);
+				pstmt.setString(7, baddr);
 			int result = pstmt.executeUpdate();
 			
 			return (result==1) ? true : false;			

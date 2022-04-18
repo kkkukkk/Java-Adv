@@ -47,8 +47,10 @@
 		String bid = request.getParameter("bid");
 	
 		BoardDTO board = (new BoardDAO()).getDetail(bid);
+		String addr = board.getBaddr();
+		String user = board.getBuser();
 	%>
-	
+		
 	<div class="shadow mx-auto mt-5 p-5 w-75 rounded">
 	<div class = "row">
 	<div class = "col-ma-6">
@@ -56,9 +58,59 @@
 		<h5><%=board.getBuser() %></h5>
 		<p><%=board.getBcontent() %>
 		<p><%=board.getBdate()%>
+		<p><%=addr%>
 	<div class = "col-ma-5">
 		<img src="/images/<%=board.getBimage()%>" style="width:100%">
 	</div>
+	
+	<div id="map" style="width:100%;height:350px;"></div>
+
+		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=703a92aa4dcf728f3581378ae320a65a&libraries=services"></script>
+		<script>
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		    mapOption = {
+		        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+		        level: 3 // 지도의 확대 레벨
+		    };  
+		
+		// 지도를 생성합니다    
+		var map = new kakao.maps.Map(mapContainer, mapOption); 
+		
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
+		
+		var addr = "<%=addr%>"; 
+		var user = "<%=user%>";
+
+		// 주소로 좌표를 검색합니다
+		geocoder.addressSearch(addr, function(result, status) {
+		
+		    // 정상적으로 검색이 완료됐으면 
+		     if (status === kakao.maps.services.Status.OK) {
+		
+		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+		
+		        // 결과값으로 받은 위치를 마커로 표시합니다
+		        var marker = new kakao.maps.Marker({
+		            map: map,
+		            position: coords
+		        });
+		
+		        // 인포윈도우로 장소에 대한 설명을 표시합니다
+		        var infowindow = new kakao.maps.InfoWindow({
+		            content: '<div style="width:150px;text-align:center;padding:6px 0;"><%=user%></div>'
+		        });
+		        infowindow.open(map, marker);
+		
+		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+		        map.setCenter(coords);
+		    } else{
+		    	alert('찾는 곳이 지도에 존재하지 않습니다. 😥');
+		    }
+		});    
+		</script>
+	
+	
 
 		<br><br>
 		<a href="" class="btn btn-info">좋아요👍</a>
