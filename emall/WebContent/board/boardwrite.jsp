@@ -63,8 +63,8 @@
 	  <br>
       <div class="form-group row justify-content-center">
 			<div class="col-sm-8">
-  			<label for="formFileMultiple" class="form-label">사진 업로드 📷</label>
-  			<input class="form-control" name="bimages" type="file" id="formFileMultiple" multiple>
+  			<label for="formFile" class="form-label">사진 업로드 📷</label>
+  			<input class="form-control" name="bimages" type="file" id="formFile">
 			</div>
 		</div>
        

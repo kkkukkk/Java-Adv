@@ -91,8 +91,8 @@ public class BoardDAO {
 				pstmt.setString(2, btitle);
 				pstmt.setString(3, bcontent);
 				pstmt.setString(4, buser);
-				pstmt.setString(5, bimage);
-				pstmt.setString(6, LocalDate.now().toString());
+				pstmt.setString(5, LocalDate.now().toString());
+				pstmt.setString(6, bimage);
 			int result = pstmt.executeUpdate();
 			
 			return (result==1) ? true : false;			
