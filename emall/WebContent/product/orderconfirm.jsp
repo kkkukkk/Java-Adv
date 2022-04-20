@@ -1,7 +1,6 @@
 <%@page import="jdbc.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <%
 	request.setCharacterEncoding("UTF-8");
 	String uid = (String) session.getAttribute("id");
@@ -11,13 +10,12 @@
 	}//세션 정보를 확인해서 로그인 상태인지 확인한 후 진입 허용
 
 %>
-    
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>상품 상세 보기</title>
-<link href="../font.css" rel="stylesheet" type="text/css">
+<title>상품 주문</title>
 </head>
 <body>
 <div class="bodydiv">
@@ -31,7 +29,7 @@
 
 	<%@ include file="/_header.jsp"%>
 
-	<%!String title = "🛒 상품 상세 🛒";%>
+	<%!String title = "🛒 상품 주문 🛒";%>
 
 	<div class="alert alert-secondary text-center" role="alert">
 		<div class="container">
@@ -40,6 +38,7 @@
 			</h3>
 		</div>
 	</div>
+	
 	
 	<%
 		String pid = request.getParameter("pid");
@@ -66,13 +65,10 @@
 	
 	</div>
 	</div>
-
-
-
-
-
-
-
+	
+	
+	
+	
 
 
 
@@ -84,5 +80,6 @@
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 		crossorigin="anonymous"></script>
 </div>
+
 </body>
 </html>

@@ -55,6 +55,15 @@
 				<input type="text" name="btitle" class="form-control">
 			</div>
 		</div>
+		<div class="form-group row">
+		<label class="col-sm-2"><h3><b>집주소</b></h3></label>
+		<div class="col-sm-6">
+			<input type="text" name="baddr" class="form-control">
+		</div>
+	</div>
+		
+		
+		
       <br>     
       <div class="form-group row">
          <textarea id="summernote" name="bcontent"></textarea>
@@ -80,6 +89,8 @@
    
      </form>
    </div>
+   
+   
 
 	
 

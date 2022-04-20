@@ -14,7 +14,7 @@
 <body>
 
 <h1>상품 목록</h1>
-<%
+<%-- <%
 	ArrayList<ProductDTO> listOfProducts = productDAO.getAllProducts();
 %>
 
@@ -28,7 +28,7 @@ for(int i = 0; i < listOfProducts.size(); i++) {
 	<%=product.getPdesc() %>
 	<%=product.getPprice() %> 원
 	
-<% } %>
+<% } %> --%>
 
 </body>
 </html>

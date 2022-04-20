@@ -15,6 +15,7 @@ request.setCharacterEncoding("UTF-8");
 String btitle = null;
 String bcontent = null;
 String bimage = null;
+String baddr = null;
 
 byte[] bfile = null;
 
@@ -34,6 +35,7 @@ while(iter.hasNext()) {	//요소가 있으면 계속 반복 없으면 종료
 		String value = item.getString("utf-8");
 		if(name.equals("btitle")) btitle = value;
 		else if(name.equals("bcontent")) bcontent = value;
+		else if(name.equals("baddr")) baddr = value;
 	}else{
 		// 사진을 추출
 		if (name.equals("bimages")) {
@@ -49,7 +51,7 @@ while(iter.hasNext()) {	//요소가 있으면 계속 반복 없으면 종료
 	String buser = (String) session.getAttribute("id");
 	// 디비에 게시물 모든 정보 전달
 	BoardDAO dao = new BoardDAO();
-	if (dao.insert(btitle, bcontent, buser, bimage)){
+	if (dao.insert(btitle, bcontent, buser, bimage, baddr)){
 		response.sendRedirect("boardlist.jsp");
 	}
 
