@@ -16,6 +16,8 @@ String btitle = null;
 String bcontent = null;
 String bimage = null;
 String baddr = null;
+int flag;
+int chk = 1;
 
 byte[] bfile = null;
 
@@ -38,23 +40,35 @@ while(iter.hasNext()) {	//요소가 있으면 계속 반복 없으면 종료
 		else if(name.equals("baddr")) baddr = value;
 	}else{
 		// 사진을 추출
-		if (name.equals("bimages")) {
-			bimage = item.getName();    // 사진 이름
-			bfile = item.get();			// 사진 내용
-			// 서버에 사진 저장
-			String root = application.getRealPath(java.io.File.separator);
-			FileUtil.saveImage(root, bimage, bfile);
-			
+		try{
+			if (name.equals("bimages")) {
+				bimage = item.getName();    // 사진 이름
+				bfile = item.get();			// 사진 내용
+				// 서버에 사진 저장
+				String root = application.getRealPath(java.io.File.separator);
+				FileUtil.saveImage(root, bimage, bfile);
+	
+			}
+		}catch(Exception e){
+			chk = 0;
+			break;
 		}
 	}
 }
 	String buser = (String) session.getAttribute("id");
 	// 디비에 게시물 모든 정보 전달
 	BoardDAO dao = new BoardDAO();
-	if (dao.insert(btitle, bcontent, buser, bimage, baddr)){
+	if (chk == 1){
+		flag = dao.insert(btitle, bcontent, buser, bimage, baddr);
+	}else{
+		flag = dao.insert(btitle, bcontent, buser, baddr);
+	}
+	
+	if (flag == 0){
 		response.sendRedirect("boardlist.jsp");
 	}
-
-
+	
+	
+		
 
 %>

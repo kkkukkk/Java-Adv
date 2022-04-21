@@ -1,4 +1,4 @@
-package jdbc;
+	package jdbc;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -79,31 +79,63 @@ public class BoardDAO {
 				}
 	}
 	
-	public boolean insert(String btitle, String bcontent, String buser, String bimage, String baddr)
-	throws NamingException, SQLException {
+	public int insert(String btitle, String bcontent, String buser, String bimage, String baddr)
+	throws NamingException
+	{
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		
+		int flag = 1;
 		try {
-			String sql = "INSERT INTO board VALUES (?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO board VALUES (NULL,?,?,?,?,?,?)";
 			conn = ConnectionPool.get();
 			pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, 0);
-				pstmt.setString(2, btitle);
-				pstmt.setString(3, bcontent);
-				pstmt.setString(4, buser);
-				pstmt.setString(5, LocalDate.now().toString());
-				pstmt.setString(6, bimage);
-				pstmt.setString(7, baddr);
+				pstmt.setString(1, btitle);
+				pstmt.setString(2, bcontent);
+				pstmt.setString(3, buser);
+				pstmt.setString(4, LocalDate.now().toString());
+				pstmt.setString(5, bimage);
+				pstmt.setString(6, baddr);
 			int result = pstmt.executeUpdate();
 			
-			return (result==1) ? true : false;			
-			
-		} finally {
-			if(pstmt != null) pstmt.close();
-			if(conn != null) conn.close();
+			if (result == 1) flag = 0;	
+		}catch (SQLException e) {
+			System.out.println("error: "+e.getMessage());
+		}finally {
+			if(pstmt != null) try{pstmt.close();} catch(SQLException e) {}
+			if(conn != null) try{conn.close();} catch(SQLException e) {}
 		}
+		return flag;
 	}
+	
+	public int insert(String btitle, String bcontent, String buser, String baddr)
+			throws NamingException
+			{
+				
+				Connection conn = null;
+				PreparedStatement pstmt = null;
+				int flag = 1;
+				try {
+					String sql = "INSERT INTO board VALUES (NULL,?,?,?,?,NULL,?)";
+					conn = ConnectionPool.get();
+					pstmt = conn.prepareStatement(sql);
+						pstmt.setString(1, btitle);
+						pstmt.setString(2, bcontent);
+						pstmt.setString(3, buser);
+						pstmt.setString(4, LocalDate.now().toString());
+						pstmt.setString(5, baddr);
+					int result = pstmt.executeUpdate();
+					
+					if (result == 1) flag = 0;	
+				}catch (SQLException e) {
+					System.out.println("error: "+e.getMessage());
+				}finally {
+					if(pstmt != null) try{pstmt.close();} catch(SQLException e) {}
+					if(conn != null) try{conn.close();} catch(SQLException e) {}
+				}
+				return flag;
+			}
+	
+	
 	
 }

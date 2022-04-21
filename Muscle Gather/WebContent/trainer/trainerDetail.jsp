@@ -1,29 +1,14 @@
-<%@page import="jdbc.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<%
-	request.setCharacterEncoding("UTF-8");
-	String uid = (String) session.getAttribute("id");
-	if(uid ==null){
-		response.sendRedirect("/user/login.jsp");
-		return;
-	}//세션 정보를 확인해서 로그인 상태인지 확인한 후 진입 허용
-	
-	//*세션을 한번 더 심어주기*
 
-%>    
-    
-    
 <!DOCTYPE html>
+<%@page import="jdbc.*"%>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시글 보기</title>
-<link href="../font.css" rel="stylesheet" type="text/css">
+<title>자세히 보기</title>
 </head>
 <body>
-<div class="bodydiv">
 <!-- CSS only -->
 	<link
 		href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
@@ -32,11 +17,9 @@
 		crossorigin="anonymous">
 
 
-	<%@ include file="/_header.jsp"%>
+	<%!String title = "📖 자세히보기 📚";%>
 
-	<%!String title = "📖 게시글 보기 📚";%>
-
-	<div class="alert alert-secondary text-center" role="alert">
+	<div class="alert alert-light text-center" role="alert">
 		<div class="container">
 			<h3 class="display-20">
 				<%=title%>
@@ -46,32 +29,31 @@
 
 
 	<%
-		String bid = request.getParameter("bid");
+		String trainer_no = request.getParameter("trainer_no");
 	
-		BoardDTO board = (new BoardDAO()).getDetail(bid);
-		String addr = board.getBaddr();
-		String user = board.getBuser();
+		TrainerDTO trainer = (new TrainerDAO()).getTrainerDetail(trainer_no);
+		String addr = trainer.getTrainer_addr();
+		String user = trainer.getTrainer_title();
 	%>
 		
 	<div class="shadow mx-auto mt-5 p-5 w-75 rounded">
 	<div class = "row">
 	<div class = "col-ma-6">
-		<h3><%=board.getBtitle() %></h3>
-		<h5><%=board.getBuser() %></h5>
-		<p><%=board.getBcontent() %>
-		<p><%=board.getBdate()%>
+		<h3><%=trainer.getTrainer_title() %></h3>
+		<h5><%=trainer.getTrainer_no() %></h5>
+		<p><%=trainer.getTrainer_content() %>
+		<p><%=trainer.getTrainer_regdate()%>
 		<p><%=addr%>
-	<%
-	if(board.getBimage() != null){
 		
-	%>
+	<%
+	if (trainer.getTrainer_images() != null){
+	%>		
 	<div class = "col-ma-5">
-		<img src="/images/<%=board.getBimage()%>" style="width:100%">
+		<img src="/images/<%=trainer.getTrainer_images()%>" style="width:100%">
 	</div>
 	<%}%>
 	
-	
-	<div id="map" style="width:50%;height:350px;"></div>
+	<div id="map" style="width:100%;height:350px;"></div>
 
 		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=703a92aa4dcf728f3581378ae320a65a&libraries=services"></script>
 		<script>
@@ -113,7 +95,7 @@
 		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 		        map.setCenter(coords);
 		    } else{
-		    	alert('존재하지 않는 주소입니다. 😥');
+		    	alert('찾는 곳이 지도에 존재하지 않습니다. 😥');
 		    }
 		});    
 		</script>
@@ -135,17 +117,11 @@
 
 
 
-
-
-
-<%@ include file="/_footer.jsp"%>
-
 	<!-- JavaScript Bundle with Popper -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 		crossorigin="anonymous"></script>
 
-</div>
 </body>
 </html>

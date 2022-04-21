@@ -125,39 +125,59 @@ public class TrainerDAO {
 				
 			}
 	
-	public ArrayList<TrainerDTO> getTrainerSearchedList(String searchinfo, int start, int line)
+	//검색용
+	public ArrayList<TrainerDTO> getTrainerSearchedList(String searchinfo, int start, int line, int flag)
 			throws NamingException, SQLException {
 				
 				Connection conn = null;
 				PreparedStatement pstmt = null;
 				ResultSet rs_in = null;
 				
-				try {
-					String sql = "SELECT * FROM trainer WHERE trainer_content LIKE '%"+searchinfo+"%' ORDER BY trainer_no DESC LIMIT ?,?";
-					
-					conn = ConnectionPool.get();
-					pstmt = conn.prepareStatement(sql);
-					pstmt.setInt(1, start);
-					pstmt.setInt(2, line);
-					rs_in = pstmt.executeQuery();
-					
-					ArrayList<TrainerDTO> trainers = new ArrayList<TrainerDTO>();
-					
-					while(rs_in.next()) {
-						String t_no = rs_in.getString("user_no");
-						trainers.add(getTrainer(t_no));
+				ArrayList<TrainerDTO> trainers = new ArrayList<TrainerDTO>();
+				
+				if (flag == 0) {
+					try {
+						String sql = "SELECT * FROM trainer WHERE trainer_content LIKE '%"+searchinfo+"%' ORDER BY trainer_no DESC LIMIT ?,?";
+						
+						conn = ConnectionPool.get();
+						pstmt = conn.prepareStatement(sql);
+						pstmt.setInt(1, start);
+						pstmt.setInt(2, line);
+						rs_in = pstmt.executeQuery();
+						
+						while(rs_in.next()) {
+							String t_no = rs_in.getString("user_no");
+							trainers.add(getTrainer(t_no));
+						}
+					}finally {
+						if(rs_in != null) rs_in.close();
+						if(pstmt != null) pstmt.close();
+						if(conn != null) conn.close();
 					}
-					return trainers;
 					
-				}finally {
-					if(rs_in != null) rs_in.close();
-					if(pstmt != null) pstmt.close();
-					if(conn != null) conn.close();
+				} else if (flag == 1) {
+					try {
+						String sql = "SELECT * FROM trainer WHERE trainer_addr LIKE '%"+searchinfo+"%' ORDER BY trainer_no DESC LIMIT ?,?";
+						
+						conn = ConnectionPool.get();
+						pstmt = conn.prepareStatement(sql);
+						pstmt.setInt(1, start);
+						pstmt.setInt(2, line);
+						rs_in = pstmt.executeQuery();
+						
+						while(rs_in.next()) {
+							String t_no = rs_in.getString("user_no");
+							trainers.add(getTrainer(t_no));
+						}				
+					}finally {
+						if(rs_in != null) rs_in.close();
+						if(pstmt != null) pstmt.close();
+						if(conn != null) conn.close();
+					}
 				}
+				return trainers;
 				
-				
-			}
-	
+			}//메닫중
 	
 	
 }

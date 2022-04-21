@@ -4,11 +4,12 @@
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%request.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>트레이너 목록</title>
+<title>지역 검색 목록</title>
 <style>
 .paging{
 	text-align:center;
@@ -27,7 +28,7 @@
 			crossorigin="anonymous">
 
 
-		<%!String title = "트레이너 목록";%>
+		<%!String title = "🔍 지역 검색 결과";%>
 
 		<div class="alert alert-light text-center" role="alert">
 			<div class="container">
@@ -38,7 +39,7 @@
 		</div>
 		
 		<%@ include file="trainerListUpperForm.jsp"%>
-		
+
 		<!-- 리스트 테이블 -->
 		<table class="table table-hover text-center">
 		
@@ -83,7 +84,9 @@
 		
 		// 총 게시물 개수(총 회원의 수, 테이블 전체의 수) 계산
 		
-		String sql = "SELECT count(*) FROM trainer";
+		String searchaddrinfo = request.getParameter("searchaddrinfo");
+		
+		String sql = "SELECT count(*) FROM trainer WHERE trainer_addr LIKE '%"+searchaddrinfo+"%'";
 		pstmt = conn.prepareStatement(sql);
 		rs = pstmt.executeQuery();
 		
@@ -119,9 +122,9 @@
 		
 		%>
 		
-		
 				<%
-				ArrayList<TrainerDTO> trainers = (new TrainerDAO()).getTrainerList(start_pointer, LINE_PER_PAGE);
+				int flag = 1;
+				ArrayList<TrainerDTO> trainers = (new TrainerDAO()).getTrainerSearchedList(searchaddrinfo, start_pointer, LINE_PER_PAGE, flag);
 				
 				
 				for (TrainerDTO trainer : trainers) {
@@ -129,8 +132,7 @@
 	
 				<tr>
 					<th scope="row"><%=trainer.getTrainer_no()%></th>
-					<td><a href="#"
-						style="text-decoration: none"><%=trainer.getTrainer_title()%></a></td>
+					<td><a href="#" style="text-decoration: none"><%=trainer.getTrainer_title()%></a></td>
 					<td><%= trainer.getUser_name() %></td>
 					<td><%=trainer.getTrainer_regdate()%></td>
 				</tr>
@@ -153,11 +155,11 @@
 				
 				
 				if (block_nbr > 1) {
-					out.print("&nbsp[<a href='trainerListPaging.jsp?pageno=1'>" + "처음</a>]&nbsp");
+					out.print("&nbsp[<a href='trainerListSearch.jsp?pageno=1&searchinfo=" + searchaddrinfo + "'>" + "처음</a>]&nbsp");
 					
 					//이전 블록 시작 페이지
 					previous_block_start_page_no = block_start_page_no - PAGE_PER_BLOCK;
-					out.print("&nbsp[<a href='trainerListPaging.jsp?pageno=" + previous_block_start_page_no + "'>이전</a>]&nbsp");
+					out.print("&nbsp[<a href='trainerListSearch.jsp?pageno=" + previous_block_start_page_no + "&searchinfo=" + searchaddrinfo + "'>이전</a>]&nbsp");
 					
 				}
 				
@@ -169,7 +171,7 @@
 					if (pgn == cur_page_no){
 						out.print("&nbsp" + pgn + "&nbsp");
 					}else {
-						out.print("&nbsp[<a href='trainerListPaging.jsp?pageno=" + pgn + "'>" + pgn + "</a>]&nbsp");
+						out.print("&nbsp[<a href='trainerListSearch.jsp?pageno=" + pgn +"&searchinfo=" + searchaddrinfo + "'>" + pgn + "</a>]&nbsp");
 					}
 					
 				
@@ -177,9 +179,9 @@
 				if (block_end_page_no < nbr_of_page) {
 					// 다음 블록 시작 페이지
 					next_block_start_page_no = block_end_page_no + 1;
-					out.print("&nbsp[<a href='trainerListPaging.jsp?pageno=" + next_block_start_page_no + "'>다음</a>]&nbsp");
+					out.print("&nbsp[<a href='trainerListSearch.jsp?pageno=" + next_block_start_page_no + "&searchinfo=" + searchaddrinfo + "'>다음</a>]&nbsp");
 					
-					out.print("&nbsp[<a href='trainerListPaging.jsp?pageno=" + nbr_of_page + "'>마지막</a>]&nbsp");
+					out.print("&nbsp[<a href='trainerListSearch.jsp?pageno=" + nbr_of_page + "&searchinfo=" + searchaddrinfo + "'>마지막</a>]&nbsp");
 				}
 				
 				
@@ -189,6 +191,10 @@
 				
 			</tbody>
 		</table>
+		
+		<div class="goBack" style="text-align:center">
+  			<button type="button" class="btn btn-secondary" onclick="location.href='trainerListPaging.jsp'">목록으로</button>
+		</div>
 		
 		
 		
