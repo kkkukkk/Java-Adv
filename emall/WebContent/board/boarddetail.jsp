@@ -70,7 +70,9 @@
 	</div>
 	<%}%>
 	
-	
+	<%
+	if(board.getBaddr() != null){
+	%>
 	<div id="map" style="width:50%;height:350px;"></div>
 
 		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=703a92aa4dcf728f3581378ae320a65a&libraries=services"></script>
@@ -117,7 +119,7 @@
 		    }
 		});    
 		</script>
-	
+	<%}%>
 	
 
 		<br><br>

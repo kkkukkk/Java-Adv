@@ -52,7 +52,7 @@
 	
 				<tr>
 					<th scope="row"><%=trainer.getTrainer_no()%></th>
-					<td><a href="#"
+					<td><a href="trainerDetail.jsp?user_id="<%=trainer.getUser_no() %>
 						style="text-decoration: none"><%=trainer.getTrainer_title()%></a></td>
 					<td><%= trainer.getUser_name() %></td>
 					<td><%=trainer.getTrainer_regdate()%></td>

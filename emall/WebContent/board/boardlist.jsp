@@ -50,11 +50,11 @@
 				for (BoardDTO board : boards) {
 				%>
 
-				<tr>
+				<tr onclick="location.href='boarddetail.jsp?bid=<%=board.getBid()%>'"
+						style="cursor:pointer;">
 					<th scope="row"><%=board.getBid()%></th>
 					<td><%=board.getBuser()%></td>
-					<td><a href="boarddetail.jsp?bid=<%=board.getBid()%>"
-						style="text-decoration: none"><%=board.getBtitle()%></a></td>
+					<td><%=board.getBtitle()%></td>
 					<td><%=board.getBdate()%></td>
 				</tr>
 				<%

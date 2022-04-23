@@ -1,3 +1,4 @@
+<%@page import="com.sun.corba.se.impl.protocol.NotLocalLocalCRDImpl"%>
 <%@page import="util.ConnectionPool"%>
 <%@page import="jdbc.*"%>
 <%@page import="java.util.ArrayList"%>
@@ -9,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>내용 검색 결과</title>
+<title>검색 결과</title>
 <style>
 .paging{
 	text-align:center;
@@ -28,7 +29,7 @@
 			crossorigin="anonymous">
 
 
-		<%!String title = "🔍 내용 검색 결과 🔍";%>
+		<%!String title = "🔍 검색 결과 🔍";%>
 
 		<div class="alert alert-light text-center" role="alert">
 			<div class="container">
@@ -78,15 +79,27 @@
 		int block_end_page_no = 0;				//블록 끝 페이지 번호
 		int previous_block_start_page_no = 0;	//이전 블록 시작 페이지 번호
 		int next_block_start_page_no = 0;		//다음 블록 시작 페이지 번호
-		
-		
+		String sql;
+		int flag;
+		ArrayList<TrainerDTO> trainers;
 		
 		
 		// 총 게시물 개수(총 회원의 수, 테이블 전체의 수) 계산
-		
+
 		String searchinfo = request.getParameter("searchinfo");
-		 
-		String sql = "SELECT count(*) FROM trainer WHERE trainer_content LIKE '%"+searchinfo+"%'";
+		String searchaddrinfo = request.getParameter("searchaddrinfo");
+		
+
+		if (searchinfo == null && searchaddrinfo == null){
+			sql = "SELECT count(*) FROM trainer";
+			flag = 0;
+		}else if(searchaddrinfo == null){
+			sql = "SELECT count(*) FROM trainer WHERE trainer_content LIKE '%"+searchinfo+"%'";
+			flag = 1;
+		}else {
+			sql = "SELECT count(*) FROM trainer WHERE trainer_addr LIKE '%"+searchaddrinfo+"%'";
+			flag = 2;
+		}
 		
 		pstmt = conn.prepareStatement(sql);
 		rs = pstmt.executeQuery();
@@ -124,9 +137,14 @@
 		%>
 		
 				<%
-				int flag = 0;
-				ArrayList<TrainerDTO> trainers = (new TrainerDAO()).getTrainerSearchedList(searchinfo, start_pointer, LINE_PER_PAGE, flag);
-				
+				if (flag == 0){
+					trainers = (new TrainerDAO()).getTrainerSearchedList(searchinfo, start_pointer, LINE_PER_PAGE, flag);
+				}else if(flag == 1){
+					trainers = (new TrainerDAO()).getTrainerSearchedList(searchinfo, start_pointer, LINE_PER_PAGE, flag);
+				}else {
+					trainers = (new TrainerDAO()).getTrainerSearchedList(searchaddrinfo, start_pointer, LINE_PER_PAGE, flag);
+				}
+
 				if (trainers.isEmpty()){
 				%>
 				<tr>
@@ -161,12 +179,13 @@
 					
 					
 					
+					
 					if (block_nbr > 1) {
-						out.print("&nbsp[<a href='trainerListSearch.jsp?pageno=1&searchinfo=" + searchinfo + "'>" + "처음</a>]&nbsp");
+						out.print("&nbsp[<a href='trainerListSearchTest.jsp?pageno=1&searchinfo=" + searchinfo + "&searchaddrinfo="+ searchaddrinfo +"'>처음</a>]&nbsp");
 						
 						//이전 블록 시작 페이지
 						previous_block_start_page_no = block_start_page_no - PAGE_PER_BLOCK;
-						out.print("&nbsp[<a href='trainerListSearch.jsp?pageno=" + previous_block_start_page_no + "&searchinfo=" + searchinfo + "'>이전</a>]&nbsp");
+						out.print("&nbsp[<a href='trainerListSearchTest.jsp?pageno=" + previous_block_start_page_no + "&searchinfo=" + searchinfo + "&searchaddrinfo="+ searchaddrinfo +"&searchaddrinfo="+ searchaddrinfo + "'>이전</a>]&nbsp");							
 						
 					}
 					
@@ -174,11 +193,10 @@
 						if (pgn > nbr_of_page){
 							break;
 						}
-						
 						if (pgn == cur_page_no){
 							out.print("&nbsp" + pgn + "&nbsp");
 						}else {
-							out.print("&nbsp[<a href='trainerListSearch.jsp?pageno=" + pgn +"&searchinfo=" + searchinfo + "'>" + pgn + "</a>]&nbsp");
+							out.print("&nbsp[<a href='trainerListSearchTest.jsp?pageno=" + pgn +"&searchinfo=" + searchinfo + "&searchaddrinfo="+ searchaddrinfo + "'>" + pgn + "</a>]&nbsp");
 						}
 						
 					
@@ -186,9 +204,10 @@
 					if (block_end_page_no < nbr_of_page) {
 						// 다음 블록 시작 페이지
 						next_block_start_page_no = block_end_page_no + 1;
-						out.print("&nbsp[<a href='trainerListSearch.jsp?pageno=" + next_block_start_page_no + "&searchinfo=" + searchinfo + "'>다음</a>]&nbsp");
 						
-						out.print("&nbsp[<a href='trainerListSearch.jsp?pageno=" + nbr_of_page + "&searchinfo=" + searchinfo + "'>마지막</a>]&nbsp");
+						out.print("&nbsp[<a href='trainerListSearchTest.jsp?pageno=" + next_block_start_page_no + "&searchinfo=" + searchinfo + "&searchaddrinfo="+ searchaddrinfo + "'>다음</a>]&nbsp");
+						out.print("&nbsp[<a href='trainerListSearchTest.jsp?pageno=" + nbr_of_page + "&searchinfo=" + searchinfo + "&searchaddrinfo="+ searchaddrinfo + "'>마지막</a>]&nbsp");
+
 					}
 				
 				}

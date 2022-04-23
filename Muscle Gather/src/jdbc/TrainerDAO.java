@@ -126,58 +126,89 @@ public class TrainerDAO {
 			}
 	
 	//검색용
-	public ArrayList<TrainerDTO> getTrainerSearchedList(String searchinfo, int start, int line, int flag)
-			throws NamingException, SQLException {
+		public ArrayList<TrainerDTO> getTrainerSearchedList(String searchinfo, int start, int line, int flag)
+				throws NamingException, SQLException {
+					
+					Connection conn = null;
+					PreparedStatement pstmt = null;
+					ResultSet rs_in = null;
+					
+					ArrayList<TrainerDTO> trainers = new ArrayList<TrainerDTO>();
+					
+					if (flag == 0) {
+						try {
+							String sql = "SELECT * FROM trainer WHERE trainer_content LIKE '%"+searchinfo+"%' ORDER BY trainer_no DESC LIMIT ?,?";
+							
+							conn = ConnectionPool.get();
+							pstmt = conn.prepareStatement(sql);
+							pstmt.setInt(1, start);
+							pstmt.setInt(2, line);
+							rs_in = pstmt.executeQuery();
+							
+							while(rs_in.next()) {
+								String t_no = rs_in.getString("user_no");
+								trainers.add(getTrainer(t_no));
+							}
+						}finally {
+							if(rs_in != null) rs_in.close();
+							if(pstmt != null) pstmt.close();
+							if(conn != null) conn.close();
+						}
+						
+					} else if (flag == 1) {
+						try {
+							String sql = "SELECT * FROM trainer WHERE trainer_addr LIKE '%"+searchinfo+"%' ORDER BY trainer_no DESC LIMIT ?,?";
+							
+							conn = ConnectionPool.get();
+							pstmt = conn.prepareStatement(sql);
+							pstmt.setInt(1, start);
+							pstmt.setInt(2, line);
+							rs_in = pstmt.executeQuery();
+							
+							while(rs_in.next()) {
+								String t_no = rs_in.getString("user_no");
+								trainers.add(getTrainer(t_no));
+							}				
+						}finally {
+							if(rs_in != null) rs_in.close();
+							if(pstmt != null) pstmt.close();
+							if(conn != null) conn.close();
+						}
+					}
+					return trainers;
+					
+				}//메닫중
+	
+	public TrainerDTO getTrainerDetail(String trainer_no) 
+			throws NamingException, SQLException{
 				
 				Connection conn = null;
 				PreparedStatement pstmt = null;
-				ResultSet rs_in = null;
+				ResultSet rs = null;
 				
-				ArrayList<TrainerDTO> trainers = new ArrayList<TrainerDTO>();
-				
-				if (flag == 0) {
-					try {
-						String sql = "SELECT * FROM trainer WHERE trainer_content LIKE '%"+searchinfo+"%' ORDER BY trainer_no DESC LIMIT ?,?";
-						
-						conn = ConnectionPool.get();
-						pstmt = conn.prepareStatement(sql);
-						pstmt.setInt(1, start);
-						pstmt.setInt(2, line);
-						rs_in = pstmt.executeQuery();
-						
-						while(rs_in.next()) {
-							String t_no = rs_in.getString("user_no");
-							trainers.add(getTrainer(t_no));
-						}
-					}finally {
-						if(rs_in != null) rs_in.close();
-						if(pstmt != null) pstmt.close();
-						if(conn != null) conn.close();
-					}
+				try {
+//					String sql = "SELECT * FROM trainer WHERE trainer_no = ?";
+//					
+//					conn = ConnectionPool.get();
+//					pstmt = conn.prepareStatement(sql);
+//						pstmt.setString(1, trainer_no);
+//					rs = pstmt.executeQuery();
+//					
+//					rs.next();
 					
-				} else if (flag == 1) {
-					try {
-						String sql = "SELECT * FROM trainer WHERE trainer_addr LIKE '%"+searchinfo+"%' ORDER BY trainer_no DESC LIMIT ?,?";
-						
-						conn = ConnectionPool.get();
-						pstmt = conn.prepareStatement(sql);
-						pstmt.setInt(1, start);
-						pstmt.setInt(2, line);
-						rs_in = pstmt.executeQuery();
-						
-						while(rs_in.next()) {
-							String t_no = rs_in.getString("user_no");
-							trainers.add(getTrainer(t_no));
-						}				
-					}finally {
-						if(rs_in != null) rs_in.close();
-						if(pstmt != null) pstmt.close();
-						if(conn != null) conn.close();
-					}
+					
+					
+					return null;
+					
+				}finally {
+					if(rs != null) rs.close();
+					if(pstmt != null) pstmt.close();
+					if(conn != null) conn.close();
 				}
-				return trainers;
-				
-			}//메닫중
+	}
+	
+	
+	
 	
 	
 }

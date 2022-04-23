@@ -104,7 +104,7 @@
 
 		<br><br>
 		<a href="" class="btn btn-info">좋아요👍</a>
-		<a href="boardlist.jsp" class="btn btn-secondary">글 목록</a>
+		<a href="trainerListPaging.jsp" class="btn btn-secondary">글 목록</a>
 	</div>
 	
 	
