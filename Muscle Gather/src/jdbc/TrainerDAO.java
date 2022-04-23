@@ -187,18 +187,49 @@ public class TrainerDAO {
 				ResultSet rs = null;
 				
 				try {
-//					String sql = "SELECT * FROM trainer WHERE trainer_no = ?";
-//					
-//					conn = ConnectionPool.get();
-//					pstmt = conn.prepareStatement(sql);
-//						pstmt.setString(1, trainer_no);
-//					rs = pstmt.executeQuery();
-//					
-//					rs.next();
+					String sql = "SELECT * FROM trainer WHERE trainer_no = ?";
 					
+					conn = ConnectionPool.get();
+					pstmt = conn.prepareStatement(sql);
+						pstmt.setString(1, trainer_no);
+					rs = pstmt.executeQuery();
 					
+					rs.next();
 					
-					return null;
+					String no = rs.getString(1);
+					String user_no = rs.getString(2);
+					String trainer_title = rs.getString(3);
+					String trainer_content = rs.getString(4);
+					String trainer_addr = rs.getString(5);
+					String trainer_secret = rs.getString(6);
+					String trainer_regdate = rs.getString(7);
+					String trainer_images = rs.getString(8);
+					
+					UserDTO user = new UserDAO().getUser(user_no);
+							
+					TrainerDTO trainer = new TrainerDTO(user_no,
+													user.getUser_name(),
+													user.getUser_pw(),
+													user.getUser_birth(),
+													user.getUser_zipcode(),
+													user.getUser_addr(),
+													user.getUser_addrdetail(),
+													user.getUser_gender(),
+													user.getUser_email(),
+													user.getUser_phone(),
+													user.getUser_admin(),
+													user.getUser_kakao(),
+													user.getUser_auth(),
+													user.getUser_status(),
+													no,
+													trainer_title,
+													trainer_content,
+													trainer_secret, 
+													trainer_addr,
+													trainer_regdate,
+													trainer_images);
+					
+					return trainer;
 					
 				}finally {
 					if(rs != null) rs.close();

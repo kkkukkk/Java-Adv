@@ -114,12 +114,15 @@
 		
 		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 		        map.setCenter(coords);
-		    } else{
-		    	alert('존재하지 않는 주소입니다. 😥');
 		    }
 		});    
 		</script>
-	<%}%>
+	<%
+		} else{
+	    	out.print("<script>alert('찾는 곳이 지도에 존재하지 않습니다. 😥')</script>");
+	    }
+	
+	%>
 	
 
 		<br><br>

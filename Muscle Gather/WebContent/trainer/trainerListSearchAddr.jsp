@@ -139,12 +139,13 @@
 				
 				%>
 	
-				<tr>
-					<th scope="row"><%=trainer.getTrainer_no()%></th>
-					<td><a href="trainerDetail.jsp" style="text-decoration: none"><%=trainer.getTrainer_title()%></a></td>
-					<td><%= trainer.getUser_name() %></td>
-					<td><%=trainer.getTrainer_regdate()%></td>
-				</tr>
+					<tr onclick="location.href='trainerDetail.jsp?trainer_no=<%=trainer.getTrainer_no()%>'"
+							style="cursor:pointer;">
+						<th scope="row"><%=trainer.getTrainer_no()%></th>
+						<td><%=trainer.getTrainer_title()%></td>
+						<td><%= trainer.getUser_name() %></td>
+						<td><%=trainer.getTrainer_regdate()%></td>
+					</tr>
 				
 				<%
 					}
