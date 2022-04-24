@@ -68,5 +68,33 @@ public class UserDAO {
 				}
 				
 			}
+		
+		public int login(String user_email, String user_pw)
+				throws NamingException, SQLException {	
+					
+					Connection conn = null;
+					PreparedStatement pstmt = null;
+					ResultSet rs = null;
+				
+					try {
+						String sql = "SELECT user_email, user_pw FROM user where user_email = ?";
+						
+						conn = ConnectionPool.get();
+						pstmt = conn.prepareStatement(sql);
+								pstmt.setString(1,user_email);
+						rs = pstmt.executeQuery();
+						
+						if (!rs.next()) return 1;                        //회원이 아닌 경우
+						if (!user_pw.equals(rs.getString("user_pw"))) return 2;  //암호 틀린 경우
+						
+						return 0;
+					} finally {
+						if(rs != null) rs.close();
+						if(pstmt != null) pstmt.close();
+						if(conn != null) conn.close();
+					}
+				
+				
+				}
 
 }

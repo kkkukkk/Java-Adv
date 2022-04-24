@@ -11,13 +11,13 @@
 <body>
 	<script>
 	
-	function work(){
+	function work(trainer_no, gym_no){
 		
 		var result = confirm("해당 트레이너에게 관심을 보내시겠습니까?")
 		
 		if (result == true){
 			alert("관심을 보냈습니다😎");
-			location.href="search.jsp?trainer_no="+trainer_no;
+			location.href="trainerResume.jsp?trainer_no="+trainer_no+"&gym_no="+gym_no;
 		}else{
 			alert("취소하였습니다😥");
 		}
@@ -51,8 +51,11 @@
 		String trainer_no = request.getParameter("trainer_no");
 	
 		TrainerDTO trainer = (new TrainerDAO()).getTrainerDetail(trainer_no);
+		GymDTO gym = (new GymDAO()).getGym(trainer.getUser_no());
 		String addr = trainer.getTrainer_addr();
 		String user = trainer.getTrainer_title();
+		String gym_no = gym.getGym_no();
+		
 	%>
 		
 	<div class="shadow mx-auto mt-5 p-5 w-75 rounded">
@@ -63,7 +66,7 @@
 		<p>유저 명 : <%=trainer.getUser_name() %>
 		<p>유저 번호 : <%=trainer.getUser_no() %>
 		<p>트레이너 명 : <%=trainer.getTrainer_title() %>
-		<p>트레이너 번호 : <%=trainer.getTrainer_no() %>
+		<p>트레이너 번호 : <%=trainer_no %>
 		<p>내용 : <%=trainer.getTrainer_content() %>
 		<p>등록일자 : <%=trainer.getTrainer_regdate()%>
 		<p>희망지역 : <%=addr%>
@@ -131,7 +134,7 @@
 
 		<br><br>
 		<div>
-			<button type="button" class="btn btn-info" onclick='work()'>좋아요👍</button>
+			<button type="button" class="btn btn-info" onclick='work(<%=trainer_no%>,<%=gym_no%>)'>좋아요👍</button>
 			<button type= "button" onclick="location.href='trainerListPaging.jsp'" class="btn btn-secondary">글 목록</button>
 		</div>
 	
