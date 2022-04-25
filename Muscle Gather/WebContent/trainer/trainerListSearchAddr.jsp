@@ -4,7 +4,15 @@
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%request.setCharacterEncoding("UTF-8"); %>
+<%
+request.setCharacterEncoding("UTF-8");
+String user_email = (String) session.getAttribute("user_email");
+if(user_email == null){
+	response.sendRedirect("/Muscle_Gather/user/login.jsp");
+	return;
+}//세션 정보를 확인해서 로그인 상태인지 확인한 후 진입 허용
+session.setAttribute("user_email", user_email); // 세션 다시 심기
+%>
 <!DOCTYPE html>
 <html>
 <head>

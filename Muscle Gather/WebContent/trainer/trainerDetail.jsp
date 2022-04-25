@@ -1,8 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<!DOCTYPE html>
 <%@page import="jdbc.*"%>
+<%
+	request.setCharacterEncoding("UTF-8");
+	String user_email = (String) session.getAttribute("user_email");
+	if(user_email == null){
+		response.sendRedirect("/Muscle_Gather/user/login.jsp");
+		return;
+	}//세션 정보를 확인해서 로그인 상태인지 확인한 후 진입 허용
+	session.setAttribute("user_email", user_email);
+%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -16,7 +24,6 @@
 		var result = confirm("해당 트레이너에게 관심을 보내시겠습니까?")
 		
 		if (result == true){
-			alert("관심을 보냈습니다😎");
 			location.href="trainerResume.jsp?trainer_no="+trainer_no+"&gym_no="+gym_no;
 		}else{
 			alert("취소하였습니다😥");
@@ -51,11 +58,10 @@
 		String trainer_no = request.getParameter("trainer_no");
 	
 		TrainerDTO trainer = (new TrainerDAO()).getTrainerDetail(trainer_no);
-		GymDTO gym = (new GymDAO()).getGym(trainer.getUser_no());
+		String gym_no = new GymDAO().getGymNOSession(user_email);
 		String addr = trainer.getTrainer_addr();
 		String user = trainer.getTrainer_title();
-		String gym_no = gym.getGym_no();
-		
+		String cnt = new TrainerDAO().getResumeCountTrainer(trainer_no);
 	%>
 		
 	<div class="shadow mx-auto mt-5 p-5 w-75 rounded">
@@ -70,6 +76,7 @@
 		<p>내용 : <%=trainer.getTrainer_content() %>
 		<p>등록일자 : <%=trainer.getTrainer_regdate()%>
 		<p>희망지역 : <%=addr%>
+		<p>관심 수 : <%=cnt %>
 		
 	<%
 	if (trainer.getTrainer_images() != null){

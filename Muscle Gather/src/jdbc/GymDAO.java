@@ -71,4 +71,40 @@ public class GymDAO {
 		
 		return gym;
 	}//메닫중
+	
+	public String getGymNOSession(String user_email) throws NamingException, SQLException{
+		String sql = "SELECT gym_no FROM gym WHERE user_no = (SELECT user_no FROM user WHERE user_email = ?)";
+		try {
+			conn = ConnectionPool.get();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user_email);
+			rs = pstmt.executeQuery();
+			rs.next();
+			
+			String gym_no = rs.getString("gym_no");
+			
+			return gym_no;
+			
+		} finally {
+			try {
+				//null이 아니면 close(메모리에서 해제)시킨다.
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+				//만약 예상못한 예외 발생시 메모리에서 해제가 안되면 문제가 생길 수 있으므로
+				//런타임에러 발생시켜서 강종합니다.
+			}
+		}
+
+		
+	}
+	
+	
+	
+	
+	
 }

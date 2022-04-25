@@ -235,11 +235,37 @@ public class TrainerDAO {
 					if(rs != null) rs.close();
 					if(pstmt != null) pstmt.close();
 					if(conn != null) conn.close();
-				}
+				}		
+				
+				
 	}
 	
 	
-	
+	public String getResumeCountTrainer(String trainer_no) throws NamingException, SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT COUNT(*) FROM resume WHERE user_to_no = ?";
+			
+			conn = ConnectionPool.get();
+			pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, trainer_no);
+			rs = pstmt.executeQuery();
+			rs.next();
+			
+			String cnt = rs.getString("COUNT(*)");
+			
+			return cnt;
+			
+		}finally {
+			if(rs != null) rs.close();
+			if(pstmt != null) pstmt.close();
+			if(conn != null) conn.close();
+		}		
+			
+	}
 	
 	
 }
