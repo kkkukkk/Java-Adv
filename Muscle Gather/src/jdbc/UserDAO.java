@@ -7,9 +7,7 @@ import javax.naming.NamingException;
 import util.ConnectionPool;
 
 public class UserDAO {
-	
-	
-	
+
 		public UserDTO getUser(String user_no) 
 				throws NamingException, SQLException{
 				
@@ -75,23 +73,28 @@ public class UserDAO {
 					Connection conn = null;
 					PreparedStatement pstmt = null;
 					ResultSet rs = null;
+					
+					if (user_pw != null) {
 				
-					try {
-						String sql = "SELECT user_email, user_pw FROM user where user_email = ?";
-						
-						conn = ConnectionPool.get();
-						pstmt = conn.prepareStatement(sql);
-								pstmt.setString(1,user_email);
-						rs = pstmt.executeQuery();
-						
-						if (!rs.next()) return 1;                        //회원이 아닌 경우
-						if (!user_pw.equals(rs.getString("user_pw"))) return 2;  //암호 틀린 경우
-						
-						return 0;
-					} finally {
-						if(rs != null) rs.close();
-						if(pstmt != null) pstmt.close();
-						if(conn != null) conn.close();
+						try {
+							String sql = "SELECT user_email, user_pw FROM user where user_email = ?";
+							
+							conn = ConnectionPool.get();
+							pstmt = conn.prepareStatement(sql);
+									pstmt.setString(1,user_email);
+							rs = pstmt.executeQuery();
+							
+							if (!rs.next()) return 1;                        //회원이 아닌 경우
+							if (!user_pw.equals(rs.getString("user_pw"))) return 2;  //암호 틀린 경우
+							
+							return 0;
+						} finally {
+							if(rs != null) rs.close();
+							if(pstmt != null) pstmt.close();
+							if(conn != null) conn.close();
+						}
+					} else {
+						return 2;
 					}
 				
 				
