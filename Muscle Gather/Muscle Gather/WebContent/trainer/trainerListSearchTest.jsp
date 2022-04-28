@@ -1,0 +1,235 @@
+<%@page import="com.sun.corba.se.impl.protocol.NotLocalLocalCRDImpl"%>
+<%@page import="util.ConnectionPool"%>
+<%@page import="jdbc.*"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.sql.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%request.setCharacterEncoding("UTF-8"); %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>검색 결과</title>
+<style>
+.paging{
+	text-align:center;
+}
+
+</style>
+
+
+</head>
+<body>
+		<!-- CSS only -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+			crossorigin="anonymous">
+
+
+		<%!String title = "🔍 검색 결과 🔍";%>
+
+		<div class="alert alert-light text-center" role="alert">
+			<div class="container">
+				<h3 class="display-20">
+					<%=title%>
+				</h3>
+			</div>
+		</div>
+		
+		<%@ include file="trainerListUpperForm.jsp"%>
+
+		<!-- 리스트 테이블 -->
+		<table class="table table-hover text-center">
+		
+		<!-- 트레이너 목록 가져오기 -->
+			<thead>
+				<tr>
+					<th scope="col">번호</th>
+					<th scope="col">이력서</th>
+					<th scope="col">유저이름</th>
+					<th scope="col">일시</th>
+				</tr>
+			</thead>
+		<tbody>
+		
+		
+		
+		
+		<%
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		conn = ConnectionPool.get();
+		
+		//////////////////////////////////////////////페이징///////////////////////////////////////////////////////
+		// 필요 변수들 선언
+		int LINE_PER_PAGE = 5;					//페이지 당 출력 줄수
+		int PAGE_PER_BLOCK = 5;					//블록당 페이지 수
+		
+		int nbr_of_row = 0;						//게시물의 총 수 / 사람의 총 수 / 테이블 전체의 개수
+		int nbr_of_page = 0;					//총 페이지 수
+		
+		int start_pointer = 0;					//DB검색 시작 위치
+		int cur_page_no = 0;					//현재 페이지 번호
+		int block_nbr = 0;						//블록 번호
+		int block_start_page_no = 0;			//블록 시작 페이지 번호
+		int block_end_page_no = 0;				//블록 끝 페이지 번호
+		int previous_block_start_page_no = 0;	//이전 블록 시작 페이지 번호
+		int next_block_start_page_no = 0;		//다음 블록 시작 페이지 번호
+		String sql;
+		int flag;
+		ArrayList<TrainerDTO> trainers;
+		
+		
+		// 총 게시물 개수(총 회원의 수, 테이블 전체의 수) 계산
+
+		String searchinfo = request.getParameter("searchinfo");
+		String searchaddrinfo = request.getParameter("searchaddrinfo");
+		
+
+		if (searchinfo == null && searchaddrinfo == null){
+			sql = "SELECT count(*) FROM trainer";
+			flag = 0;
+		}else if(searchaddrinfo == null){
+			sql = "SELECT count(*) FROM trainer WHERE trainer_content LIKE '%"+searchinfo+"%'";
+			flag = 1;
+		}else {
+			sql = "SELECT count(*) FROM trainer WHERE trainer_addr LIKE '%"+searchaddrinfo+"%'";
+			flag = 2;
+		}
+		
+		pstmt = conn.prepareStatement(sql);
+		rs = pstmt.executeQuery();
+		
+		rs.next();
+		nbr_of_row = Integer.parseInt(rs.getString("COUNT(*)"));
+		
+		// 총 페이지 수 계산 (ceil : 올림, floor 버림, round 반올림)
+		
+		nbr_of_page = (int)Math.ceil((float)nbr_of_row / LINE_PER_PAGE); 
+		
+		// 검색 페이지 확인
+		if (request.getParameter("pageno") == null) {
+		// 맨 처음 검색
+		cur_page_no = 1;
+		} else if (nbr_of_page < Integer.parseInt(request.getParameter("pageno"))){
+		// DB 검색 시작 위치 계산
+		cur_page_no = nbr_of_page;
+		} else {
+		// 특정 페이지 검색
+		cur_page_no = Integer.parseInt(request.getParameter("pageno"));
+		}
+		
+		// DB 검색 시작 위치와 갯수
+		start_pointer = (cur_page_no - 1) * LINE_PER_PAGE;
+		
+		//***********************************************SQL 처리****************************************************
+		
+		/* if(!rs.isBeforeFirst()) {
+		out.print("<script>alert('데이터가 없습니다.');"
+		+ "history.back()"
+		+ "</script>/"); 
+		} */
+		
+		%>
+		
+				<%
+				if (flag == 0){
+					trainers = (new TrainerDAO()).getTrainerSearchedList(searchinfo, start_pointer, LINE_PER_PAGE, flag);
+				}else if(flag == 1){
+					trainers = (new TrainerDAO()).getTrainerSearchedList(searchinfo, start_pointer, LINE_PER_PAGE, flag);
+				}else {
+					trainers = (new TrainerDAO()).getTrainerSearchedList(searchaddrinfo, start_pointer, LINE_PER_PAGE, flag);
+				}
+
+				if (trainers.isEmpty()){
+				%>
+				<tr>
+				<td colspan=4><label><h3>😥 검색결과가 없습니다 😥</h3> </label></td>
+				</tr>
+				<%	
+				}
+				else {
+					for (TrainerDTO trainer : trainers) {
+				%>
+	
+					<tr>
+						<th scope="row"><%=trainer.getTrainer_no()%></th>
+						<td><a href="trainerDetail.jsp" style="text-decoration: none"><%=trainer.getTrainer_title()%></a></td>
+						<td><%= trainer.getUser_name() %></td>
+						<td><%=trainer.getTrainer_regdate()%></td>
+					</tr>
+					
+				<% } %>
+				
+					<tr>
+					<td colspan=4 class="paging">
+					<%
+					//*******************************************************페이지 제어*************************************************
+					
+					// 블럭 번호
+					block_nbr = ((cur_page_no - 1) / PAGE_PER_BLOCK) + 1;
+					// 블럭 시작 페이지 번호
+					block_start_page_no = ((block_nbr - 1) * PAGE_PER_BLOCK) + 1;
+					// 블럭 끝 페이지 번호
+					block_end_page_no = (block_start_page_no + PAGE_PER_BLOCK) - 1;
+					
+					
+					
+					
+					if (block_nbr > 1) {
+						out.print("&nbsp[<a href='trainerListSearchTest.jsp?pageno=1&searchinfo=" + searchinfo + "&searchaddrinfo="+ searchaddrinfo +"'>처음</a>]&nbsp");
+						
+						//이전 블록 시작 페이지
+						previous_block_start_page_no = block_start_page_no - PAGE_PER_BLOCK;
+						out.print("&nbsp[<a href='trainerListSearchTest.jsp?pageno=" + previous_block_start_page_no + "&searchinfo=" + searchinfo + "&searchaddrinfo="+ searchaddrinfo +"&searchaddrinfo="+ searchaddrinfo + "'>이전</a>]&nbsp");							
+						
+					}
+					
+					for (int pgn = block_start_page_no; pgn <= block_end_page_no; pgn++){
+						if (pgn > nbr_of_page){
+							break;
+						}
+						if (pgn == cur_page_no){
+							out.print("&nbsp" + pgn + "&nbsp");
+						}else {
+							out.print("&nbsp[<a href='trainerListSearchTest.jsp?pageno=" + pgn +"&searchinfo=" + searchinfo + "&searchaddrinfo="+ searchaddrinfo + "'>" + pgn + "</a>]&nbsp");
+						}
+						
+					
+					}
+					if (block_end_page_no < nbr_of_page) {
+						// 다음 블록 시작 페이지
+						next_block_start_page_no = block_end_page_no + 1;
+						
+						out.print("&nbsp[<a href='trainerListSearchTest.jsp?pageno=" + next_block_start_page_no + "&searchinfo=" + searchinfo + "&searchaddrinfo="+ searchaddrinfo + "'>다음</a>]&nbsp");
+						out.print("&nbsp[<a href='trainerListSearchTest.jsp?pageno=" + nbr_of_page + "&searchinfo=" + searchinfo + "&searchaddrinfo="+ searchaddrinfo + "'>마지막</a>]&nbsp");
+
+					}
+				
+				}
+				%>
+				</td>
+				</tr>
+				
+			</tbody>
+		</table>
+		
+		<div class="goBack" style="text-align:center">
+  			<button type="button" class="btn btn-secondary" onclick="location.href='trainerListPaging.jsp'">목록으로</button>
+		</div>
+		
+		
+		
+		
+
+		<!-- JavaScript Bundle with Popper -->
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+			crossorigin="anonymous"></script>
+</body>
+</html>
