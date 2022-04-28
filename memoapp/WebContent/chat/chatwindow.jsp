@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%request.setCharacterEncoding("UTF-8"); %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,7 +42,7 @@ function disconnect(){
 
 //엔터키 입력 처리
 function enterKey(){
-	if(window.event.keyCode == 13){ //13은 'enter' 코드값
+	if(Window.event.keyCode == 13){ //13은 'enter' 코드값
 		sendMessage();
 	}
 }
@@ -73,7 +72,7 @@ webSocket.onmessage = function(event){
 	var content = message[1];
 	if(content != ""){
 		if(content.match("/")){
-			if(content.match("/" + chatId)){
+			if(content.match("/" + chatID)){
 				var temp = content.replace(("/" + chatId), "[귓속말] : ");
 				chatWindow.innerHTML += "<div>" + sender + "" + temp + "</div>";
 			}
