@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%request.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +17,7 @@ function chatWinOpen() {
       id.focus();
       return;
    }
-   window.open("chatwindow.jsp?chatid=" + id.value, "", "width=320, height=400");
+   window.open("chatwindow.jsp?chatId=" + id.value, "", "width=320, height=400");
    id.value = "";
 }
 
