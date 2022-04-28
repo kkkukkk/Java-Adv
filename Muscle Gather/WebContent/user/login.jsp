@@ -98,7 +98,7 @@ $(document).ready(function(){
 
     <div class="checkbox mb-3">
       <label>
-        <input type="checkbox" name="remember" id="remember"> 이메일 기억
+        <input type="checkbox" name="remember" id="remember"> 로그인 기억
       </label>
     </div>
     <button class="w-100 btn btn-lg btn-dark" type="submit" id=loginbtn>로그인</button>
