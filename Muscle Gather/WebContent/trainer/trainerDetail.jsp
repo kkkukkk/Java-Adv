@@ -58,8 +58,8 @@
 		String trainer_no = request.getParameter("trainer_no");
 	
 		TrainerDTO trainer = (new TrainerDAO()).getTrainerDetail(trainer_no);
-		String addr = trainer.getTrainer_addr();
 		String gym_no = new GymDAO().getGymNOSession(user_email);
+		String addr = trainer.getTrainer_addr();
 		String user = trainer.getTrainer_title();
 		String cnt = new TrainerDAO().getResumeCountTrainer(trainer_no);
 	%>
