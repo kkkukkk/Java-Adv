@@ -1,6 +1,7 @@
 package jdbc;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 import javax.naming.NamingException;
 
@@ -41,7 +42,6 @@ public class JoinDAO {
 				Connection conn = null;
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
-				String ufn = "";
 				
 				try {
 					String sql = "SELECT user_from_no FROM resume WHERE user_to_no = ?";
@@ -49,10 +49,14 @@ public class JoinDAO {
 					pstmt = conn.prepareStatement(sql);
 						pstmt.setString(1, user_to_no);
 					rs = pstmt.executeQuery();
-					rs.next();
 					
-					ufn = rs.getString("user_from_no");
-					if (ufn.equals(user_from_no)) {
+					ArrayList<String> ufn = new ArrayList<String>();
+					
+					while(rs.next()) {
+						ufn.add(rs.getString("user_from_no"));
+					}
+					
+					if (ufn.contains(user_from_no)) {
 						return 1;						
 					}else {
 						return 0;

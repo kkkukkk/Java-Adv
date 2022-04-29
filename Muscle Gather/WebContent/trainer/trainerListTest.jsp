@@ -21,17 +21,14 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>검색 결과</title>
+<title>트레이너 목록</title>
     <link type="text/css" rel="stylesheet" href="../css/default.css" />
     <link type="text/css" rel="stylesheet" href="../css/adminMain.css" />
 
     <script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="../js/default.js"></script>
-<style>
 
 
-</style>    
-    
 </head>
 <body>
 		<div class="wrap">
@@ -103,10 +100,7 @@
 		
 		// 총 게시물 개수(총 회원의 수, 테이블 전체의 수) 계산
 		
-		String searchinfo = request.getParameter("searchinfo");
-		 
-		String sql = "SELECT count(*) FROM trainer WHERE trainer_content LIKE '%"+searchinfo+"%'";
-		
+		String sql = "SELECT count(*) FROM trainer";
 		pstmt = conn.prepareStatement(sql);
 		rs = pstmt.executeQuery();
 		
@@ -135,18 +129,10 @@
 %>
 		
 				<%
-				int flag = 0;
-				ArrayList<TrainerDTO> trainers = (new TrainerDAO()).getTrainerSearchedList(searchinfo, start_pointer, LINE_PER_PAGE, flag);
+				ArrayList<TrainerDTO> trainers = (new TrainerDAO()).getTrainerList(start_pointer, LINE_PER_PAGE);
 				
-				if (trainers.isEmpty()){
-					%>
-					<div style="text-align:center">
-					<label><h2>😥 검색결과가 없습니다 😥</h2></label>
-					</div>
-					<%	
-				}
-				else{
-					for (TrainerDTO trainer : trainers) {
+				
+				for (TrainerDTO trainer : trainers) {
 				%>
 					<div class="board text" onclick="location.href='trainerDetail.jsp?trainer_no=<%=trainer.getTrainer_no()%>'"
 							style="cursor:pointer;">
@@ -163,53 +149,49 @@
 			
 				<div class="pagingBox">
 				<%
-					//*******************************************************페이지 제어*************************************************
+				//*******************************************************페이지 제어*************************************************
+				
+				// 블럭 번호
+				block_nbr = ((cur_page_no - 1) / PAGE_PER_BLOCK) + 1;
+				// 블럭 시작 페이지 번호
+				block_start_page_no = ((block_nbr - 1) * PAGE_PER_BLOCK) + 1;
+				// 블럭 끝 페이지 번호
+				block_end_page_no = (block_start_page_no + PAGE_PER_BLOCK) - 1;
+				
+				
+				
+				if (block_nbr > 1) {
+					out.print("&nbsp[<a href='trainerListTest.jsp?pageno=1'>" + "처음</a>]&nbsp");
 					
-					// 블럭 번호
-					block_nbr = ((cur_page_no - 1) / PAGE_PER_BLOCK) + 1;
-					// 블럭 시작 페이지 번호
-					block_start_page_no = ((block_nbr - 1) * PAGE_PER_BLOCK) + 1;
-					// 블럭 끝 페이지 번호
-					block_end_page_no = (block_start_page_no + PAGE_PER_BLOCK) - 1;
+					//이전 블록 시작 페이지
+					previous_block_start_page_no = block_start_page_no - PAGE_PER_BLOCK;
+					out.print("&nbsp[<a href='trainerListTest.jsp?pageno=" + previous_block_start_page_no + "'>이전</a>]&nbsp");
 					
-					
-					
-					if (block_nbr > 1) {
-						out.print("&nbsp[<a href='trainerListSearchTest.jsp?pageno=1&searchinfo=" + searchinfo + "'>" + "처음</a>]&nbsp");
-						
-						//이전 블록 시작 페이지
-						previous_block_start_page_no = block_start_page_no - PAGE_PER_BLOCK;
-						out.print("&nbsp[<a href='trainerListSearchTest.jsp?pageno=" + previous_block_start_page_no + "&searchinfo=" + searchinfo + "'>이전</a>]&nbsp");
-						
+				}
+				
+				for (int pgn = block_start_page_no; pgn <= block_end_page_no; pgn++){
+					if (pgn > nbr_of_page){
+						break;
 					}
 					
-					for (int pgn = block_start_page_no; pgn <= block_end_page_no; pgn++){
-						if (pgn > nbr_of_page){
-							break;
-						}
-						
-						if (pgn == cur_page_no){
-							out.print("&nbsp" + pgn + "&nbsp");
-						}else {
-							out.print("&nbsp[<a href='trainerListSearchTest.jsp?pageno=" + pgn +"&searchinfo=" + searchinfo + "'>" + pgn + "</a>]&nbsp");
-						}
-						
+					if (pgn == cur_page_no){
+						out.print("&nbsp" + pgn + "&nbsp");
+					}else {
+						out.print("&nbsp[<a href='trainerListTest.jsp?pageno=" + pgn + "'>" + pgn + "</a>]&nbsp");
+					}
 					
-					}
-					if (block_end_page_no < nbr_of_page) {
-						// 다음 블록 시작 페이지
-						next_block_start_page_no = block_end_page_no + 1;
-						out.print("&nbsp[<a href='trainerListSearchTest.jsp?pageno=" + next_block_start_page_no + "&searchinfo=" + searchinfo + "'>다음</a>]&nbsp");
-						
-						out.print("&nbsp[<a href='trainerListSearchTest.jsp?pageno=" + nbr_of_page + "&searchinfo=" + searchinfo + "'>마지막</a>]&nbsp");
-					}
 				
 				}
-				%>
-				</div>
+				if (block_end_page_no < nbr_of_page) {
+					// 다음 블록 시작 페이지
+					next_block_start_page_no = block_end_page_no + 1;
+					out.print("&nbsp[<a href='trainerListTest.jsp?pageno=" + next_block_start_page_no + "'>다음</a>]&nbsp");
+					
+					out.print("&nbsp[<a href='trainerListTest.jsp?pageno=" + nbr_of_page + "'>마지막</a>]&nbsp");
+				}
 				
-				<div>
-		  			<button type="button" id="goback" class="goback" onclick="location.href='trainerListTest.jsp'">목록으로</button>
+				
+				%>
 				</div>
 
 		 </section>
