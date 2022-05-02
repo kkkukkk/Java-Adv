@@ -1,6 +1,8 @@
 package jdbc;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import javax.naming.NamingException;
 
@@ -265,7 +267,72 @@ public class TrainerDAO {
 			if(conn != null) conn.close();
 		}		
 			
-	}
+	}//메닫중
+	
+	
+	public int trainerInsert(String trainer_title, String trainer_content, String trainer_addr, ArrayList<String> arr)
+			throws NamingException
+			{
+				
+				Connection conn = null;
+				PreparedStatement pstmt = null;
+				
+				String trainer_images = "";
+				
+				for(String i : arr) {
+					trainer_images += i + "/";
+				}
+				
+				int flag = 1;
+				try {
+					String sql = "INSERT INTO trainer VALUES (NULL,NULL,?,?,?,?,?,?)";
+					conn = ConnectionPool.get();
+					pstmt = conn.prepareStatement(sql);
+						pstmt.setString(1, trainer_title);
+						pstmt.setString(2, trainer_content);
+						pstmt.setString(3, trainer_addr);
+						pstmt.setInt(4, 0);
+						pstmt.setString(5, LocalDateTime.now().toString());
+						pstmt.setString(6, trainer_images);
+					int result = pstmt.executeUpdate();
+					
+					if (result == 1) flag = 0;	
+				}catch (SQLException e) {
+					System.out.println("error: "+e.getMessage());
+				}finally {
+					if(pstmt != null) try{pstmt.close();} catch(SQLException e) {}
+					if(conn != null) try{conn.close();} catch(SQLException e) {}
+				}
+				return flag;
+			}
+			
+			public int trainerInsert(String trainer_title, String trainer_content, String trainer_addr)
+					throws NamingException
+					{
+						
+						Connection conn = null;
+						PreparedStatement pstmt = null;
+						int flag = 1;
+						try {
+							String sql = "INSERT INTO trainer VALUES (NULL,NULL,?,?,?,?,?,NULL)";
+							conn = ConnectionPool.get();
+							pstmt = conn.prepareStatement(sql);
+								pstmt.setString(1, trainer_title);
+								pstmt.setString(2, trainer_content);
+								pstmt.setString(3, trainer_addr);
+								pstmt.setInt(4, 0);
+								pstmt.setString(5, LocalDateTime.now().toString());
+							int result = pstmt.executeUpdate();
+							
+							if (result == 1) flag = 0;	
+						}catch (SQLException e) {
+							System.out.println("error: "+e.getMessage());
+						}finally {
+							if(pstmt != null) try{pstmt.close();} catch(SQLException e) {}
+							if(conn != null) try{conn.close();} catch(SQLException e) {}
+						}
+						return flag;
+					}
 	
 	
 }

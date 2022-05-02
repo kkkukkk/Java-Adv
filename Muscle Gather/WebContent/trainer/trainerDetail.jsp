@@ -1,3 +1,4 @@
+<%@page import="java.util.StringTokenizer"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="jdbc.*"%>
@@ -80,11 +81,18 @@
 		
 	<%
 	if (trainer.getTrainer_images() != null){
+		
+		StringTokenizer st = new StringTokenizer(trainer.getTrainer_images(), "/");	// 매개변수를 2개 입력, 첫번째: 가공할 문자열 / 두번째: 구분자
+		
+		while(st.hasMoreTokens()){	//hasMoreTokens 다음 토큰이 존재하는지 불린타입으로 반환
 	%>		
-	<div class = "col-ma-5">
-		<img src="/images/<%=trainer.getTrainer_images()%>" style="width:100%">
-	</div>
-	<%}%>
+		<div class = "col-ma-5">
+			<img src="/images/<%=trainer.getTrainer_images()%>" style="width:100%">
+		</div>
+	<%
+	}
+	}
+	%>
 	
 	<%
 	if (trainer.getTrainer_addr() != null){ 
