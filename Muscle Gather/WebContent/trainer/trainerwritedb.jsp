@@ -7,7 +7,11 @@
 <%@ page import = "org.apache.commons.fileupload.servlet.*" %>
 <%@ page import = "util.FileUtil"%>
 
+
+
+
 <%
+
 request.setCharacterEncoding("utf-8");
 // images 로 전체 데이터가 넘어옴
 String trainer_title = null;
@@ -42,7 +46,7 @@ while(iter.hasNext()) {  // 요소가 있으면 계속 반복 없으면 종료
        
        try{
        
-           if (name.equals("images")) {
+           if (name.equals("trainer_images")) {
               
               trainer_images = item.getName();
               
@@ -73,6 +77,6 @@ if(chk == 1){
 }
    
 if(flag==0){
-   response.sendRedirect("trainerListPaging.jsp");
+   response.sendRedirect("trainerListTest.jsp");
 }
 %>

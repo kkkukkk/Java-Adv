@@ -47,14 +47,16 @@ input[type="text"] {
 	background-color:#EFEEEE;
 }
 button[id="goback"] {
-	border-radius: 7px;
+	border-radius: 6px;
 	margin:auto;
 	padding: 10px 15px;
 	text-align:center;
-	font-size: 20px;
+	font-size: 19px;
 	background-color:#f3a950;
 	display:flex;
 	justify-content: flex-end;
+	color:white;
+	font-weight:bold;
 }
 
 </style>

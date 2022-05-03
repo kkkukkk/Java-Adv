@@ -8,7 +8,8 @@ String user_email = request.getParameter("user_email");
 String user_pw = request.getParameter("user_pw");
 
 UserDAO dao = new UserDAO();
-
+UserDTO user = (new UserDAO()).getUser(user_email, 0);
+String user_no = user.getUser_no();
 int result = dao.login(user_email, user_pw);
 
 if (result == 1) { // 실패 케이스 1 아이디가 아예 없다.
@@ -19,6 +20,7 @@ if (result == 1) { // 실패 케이스 1 아이디가 아예 없다.
 	out.print("<script>document.location.href='logintest.jsp?user_email="+user_email+"'</script>");
 } else {
 	session.setAttribute("user_email", user_email);
+	session.setAttribute("user_no", user_no);
 	response.sendRedirect("../trainer/trainerListTest.jsp");
 }
 %>

@@ -5,11 +5,13 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	String user_email = (String) session.getAttribute("user_email");
+	String user_no = (String) session.getAttribute("user_no");
 	if(user_email == null){
 		response.sendRedirect("/Muscle_Gather/user/logintest.jsp");
 		return;
 	}//세션 정보를 확인해서 로그인 상태인지 확인한 후 진입 허용
 	session.setAttribute("user_email", user_email);
+	session.setAttribute("user_no", user_no);
 %>
 <!DOCTYPE html>
 <html lang="kr">
@@ -92,6 +94,7 @@
     color:white;
     font-size: 18px;
     font-weight:bold;
+    margin-bottom:20px;
     }
     
     #endbtn2{
@@ -102,6 +105,7 @@
     color:white;
     font-size: 18px;
     font-weight:bold;
+    margin-bottom:20px;
     }
     
     #marker{
@@ -124,11 +128,22 @@
     font-weight:bold;
     margin-bottom:2px;
     }
+    
     .image{
     border: double #f3a950;
+    height: 150px;
+    width: 250px;
     }
     
+    .wkwkw{
+    color:white;
+    align-items:center;
+    }
     
+    #imginfos{
+    display:flex;
+    justify-content:aroundr;
+    }
     </style>
     
 </head>
@@ -172,18 +187,16 @@
 	%>
 		
 	<div class = "content">
-	
+
+	<div id = "imginfos">
 	<%////////////////////////////사진//////////////////////////
-	if (trainer.getTrainer_images() != null){
-		
-		StringTokenizer st = new StringTokenizer(trainer.getTrainer_images(), "/");	// 매개변수를 2개 입력, 첫번째: 가공할 문자열 / 두번째: 구분자
-		
-		while(st.hasMoreTokens()){	//hasMoreTokens 다음 토큰이 존재하는지 불린타입으로 반환
+		if (trainer.getTrainer_images() != null){
+			
+			StringTokenizer st = new StringTokenizer(trainer.getTrainer_images(), "/");	// 매개변수를 2개 입력, 첫번째: 가공할 문자열 / 두번째: 구분자
+			
+			while(st.hasMoreTokens()){	//hasMoreTokens 다음 토큰이 존재하는지 불린타입으로 반환
 	%>		
-	
-		<div class = "image">
-			<img src="/images/<%=trainer.getTrainer_images()%>" style="width:100%">
-		</div>
+			<img src="/images/<%=st.nextToken()%>" style="width:150px; hdeight:250px" class="image">
 		
 	<%
 		}
@@ -200,7 +213,8 @@
 			<div>희망지역 : <%=addr%></div>
 			<div>관심 수 : <%=cnt %></div>
 		</div>
-		
+	</div>
+	
 	
 	<%
 	if (trainer.getTrainer_addr() != null){ 
@@ -210,6 +224,7 @@
 		<button type="button" onclick="show()">지도 보이기</button>
 		<button type="button" onclick="hide()">지도 숨기기</button>
 		</div>
+	
 	
 			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=703a92aa4dcf728f3581378ae320a65a&libraries=services"></script>
 			<script>

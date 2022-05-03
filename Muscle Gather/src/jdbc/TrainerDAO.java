@@ -285,15 +285,16 @@ public class TrainerDAO {
 				
 				int flag = 1;
 				try {
-					String sql = "INSERT INTO trainer VALUES (NULL,NULL,?,?,?,?,?,?)";
+					String sql = "INSERT INTO trainer VALUES (NULL,?,?,?,?,?,?,?)";
 					conn = ConnectionPool.get();
 					pstmt = conn.prepareStatement(sql);
-						pstmt.setString(1, trainer_title);
-						pstmt.setString(2, trainer_content);
-						pstmt.setString(3, trainer_addr);
-						pstmt.setInt(4, 0);
-						pstmt.setString(5, LocalDateTime.now().toString());
-						pstmt.setString(6, trainer_images);
+						pstmt.setInt(1, 151);
+						pstmt.setString(2, trainer_title);
+						pstmt.setString(3, trainer_content);
+						pstmt.setString(4, trainer_addr);
+						pstmt.setInt(5, 0);
+						pstmt.setString(6, LocalDateTime.now().toString());
+						pstmt.setString(7, trainer_images);
 					int result = pstmt.executeUpdate();
 					
 					if (result == 1) flag = 0;	

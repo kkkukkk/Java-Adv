@@ -8,11 +8,13 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	String user_email = (String) session.getAttribute("user_email");
+	String user_no = (String) session.getAttribute("user_no");
 	if(user_email == null){
 		response.sendRedirect("/Muscle_Gather/user/logintest.jsp");
 		return;
 	}//세션 정보를 확인해서 로그인 상태인지 확인한 후 진입 허용
 	session.setAttribute("user_email", user_email);
+	session.setAttribute("user_no", user_no);
 
 %>
 <!DOCTYPE html>
@@ -32,7 +34,6 @@
 		<div class="wrap">
 			<!-- header-->
 			<header id="header">
-				<%@ include file="/html/pieceHeader.html"%>
 			</header>
 	
 			<!-- hidden nav-->
