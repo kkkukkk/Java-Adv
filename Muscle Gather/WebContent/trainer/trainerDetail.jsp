@@ -25,7 +25,7 @@
 		var result = confirm("해당 트레이너에게 관심을 보내시겠습니까?")
 		
 		if (result == true){
-			location.href="trainerResume.jsp?trainer_no="+trainer_no+"&gym_no="+gym_no;
+			location.href="trainerResumeTest.jsp?trainer_no="+trainer_no+"&gym_no="+gym_no;
 		}else{
 			alert("취소하였습니다😥");
 		}

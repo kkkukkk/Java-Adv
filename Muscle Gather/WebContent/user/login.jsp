@@ -66,6 +66,9 @@ $(document).ready(function(){
 
 });
 </script>
+
+
+
 </head>
 
  <body class="text-center">
@@ -103,10 +106,10 @@ $(document).ready(function(){
       </label>
     </div>
     
+
     <div>
     <button class="w-100 btn btn-lg btn-dark" type="submit" id=loginbtn>로그인</button>
     </div>
-    
     <div>
     <button class="w-100 btn btn-lg btn-dark" type="submit" id=loginbtn onclick="location.href='#'">회원가입</button>
     </div>

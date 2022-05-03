@@ -101,7 +101,7 @@ public class TrainerDAO {
 				ResultSet rs_in = null;
 				
 				try {
-					String sql = "SELECT * FROM trainer ORDER BY trainer_no DESC LIMIT ?, ?";
+					String sql = "SELECT * FROM trainer WHERE trainer_secret != 1 ORDER BY trainer_no DESC LIMIT ?, ?";
 					
 					conn = ConnectionPool.get();
 					pstmt = conn.prepareStatement(sql);
@@ -139,7 +139,7 @@ public class TrainerDAO {
 					
 					if (flag == 0) {
 						try {
-							String sql = "SELECT * FROM trainer WHERE trainer_content LIKE '%"+searchinfo+"%' ORDER BY trainer_no DESC LIMIT ?,?";
+							String sql = "SELECT * FROM trainer WHERE trainer_content LIKE '%"+searchinfo+"%' AND trainer_secret != 1 ORDER BY trainer_no DESC LIMIT ?,?";
 							
 							conn = ConnectionPool.get();
 							pstmt = conn.prepareStatement(sql);
@@ -159,7 +159,7 @@ public class TrainerDAO {
 						
 					} else if (flag == 1) {
 						try {
-							String sql = "SELECT * FROM trainer WHERE trainer_addr LIKE '%"+searchinfo+"%' ORDER BY trainer_no DESC LIMIT ?,?";
+							String sql = "SELECT * FROM trainer WHERE trainer_addr LIKE '%"+searchinfo+"%' AND trainer_secret != 1 ORDER BY trainer_no DESC LIMIT ?,?";
 							
 							conn = ConnectionPool.get();
 							pstmt = conn.prepareStatement(sql);

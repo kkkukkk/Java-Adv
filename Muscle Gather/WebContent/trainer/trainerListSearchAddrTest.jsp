@@ -81,7 +81,7 @@
 		
 		//////////////////////////////////////////////페이징///////////////////////////////////////////////////////
 		// 필요 변수들 선언
-		int LINE_PER_PAGE = 10;					//페이지 당 출력 줄수
+		int LINE_PER_PAGE = 12;					//페이지 당 출력 줄수
 		int PAGE_PER_BLOCK = 5;					//블록당 페이지 수
 		
 		int nbr_of_row = 0;						//게시물의 총 수 / 사람의 총 수 / 테이블 전체의 개수
@@ -100,7 +100,7 @@
 		
 		String searchaddrinfo = request.getParameter("searchaddrinfo");
 		
-		String sql = "SELECT count(*) FROM trainer WHERE trainer_addr LIKE '%"+searchaddrinfo+"%'";
+		String sql = "SELECT count(*) FROM trainer WHERE trainer_addr AND trainer_secret != 1 LIKE '%"+searchaddrinfo+"%'";
 		pstmt = conn.prepareStatement(sql);
 		rs = pstmt.executeQuery();
 		
@@ -143,9 +143,10 @@
 				}
 				else {
 					for (TrainerDTO trainer : trainers) {
+						if (Integer.parseInt(trainer.getTrainer_secret()) == 0){ //0이면 공개 아니면 비공개
 				
 				%>
-					<div class="board text" onclick="location.href='trainerDetail.jsp?trainer_no=<%=trainer.getTrainer_no()%>'"
+					<div class="board text" onclick="location.href='trainerDetailTest.jsp?trainer_no=<%=trainer.getTrainer_no()%>'"
 							style="cursor:pointer;">
 						<div><%=trainer.getTrainer_no()%></div>
 						<div><%=trainer.getTrainer_title()%></div>
@@ -154,6 +155,7 @@
 					</div>
 					
 					<%
+						}
 					}
 					%>
 				</div>

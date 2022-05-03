@@ -73,6 +73,44 @@
     });
     	
     </script>
+<style>
+.btns{
+	display:flex;
+	justify-content:flex-end;
+	margin-top:25px;
+}
+.checkbox{
+	margin-top:10px;
+}
+#loginbtn{
+	width:35%;
+	height:35px;
+	background-color:#f3a950;
+	color:white;
+	font-weight:bold;
+	font-size:16px;
+	margin-left:5px;
+}
+.formcell{
+	height:75px;
+}
+#formtag1{
+	width:500px;
+}
+.logofont{
+	font-size:150px;
+	margin-top:120px;
+}
+input[type="email"]{
+	width:100%;
+	height:100%;
+}
+.emailinput{
+	height:35px;
+}
+
+    
+</style>    
 </head>
 
 <%
@@ -91,13 +129,14 @@
             
 	            <div class="formCell">
 	                <form action="logindbtest.jsp" method="POST" id="formtag1">
-				
-				    <div>
+					
+					<div class="inputs">
+				    <div class="emailinput">
 				      <input type="email" name="user_email" id="user_email" value="<%=user_email%>" placeholder="아이디(이메일)">
 				    </div>
-				    
 				    <div>
 				 	<input type="password" name="user_pw" id="user_pw" placeholder="비밀번호">
+				    </div>
 				    </div>
 				
 				    <div class="checkbox">
@@ -106,7 +145,7 @@
 				   	 	</label>
 				    </div>
 				    
-				    <div>
+				    <div class="btns">
 				    <button type="submit" id=loginbtn>로그인</button>
 				    <button type="button" id=loginbtn onclick="location.href='#'">회원가입</button>
 				    </div>
