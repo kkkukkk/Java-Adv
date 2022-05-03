@@ -77,7 +77,7 @@
 .btns{
 	display:flex;
 	justify-content:flex-end;
-	margin-top:25px;
+	margin-top:30px;
 }
 .checkbox{
 	margin-top:10px;
@@ -104,9 +104,16 @@
 input[type="email"]{
 	width:100%;
 	height:100%;
+	text-indent: 0.3em;
+}
+input[type="password"]{
+	text-indent: 0.3em;
 }
 .emailinput{
 	height:35px;
+}
+input::placeholder{
+	text-indent: 0.3em;
 }
 
     
