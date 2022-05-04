@@ -3,12 +3,13 @@
 <style>
 
 .upperForm{
-	border-top: double #f3a950;
-	border-bottom: double #f3a950;
+	margin-top:5px;
 	justify-content: space-between;
 	display:flex;
 }
-.addrsearch{
+.addrSearch{
+	margin-top: 2px;
+	margin-bottom: 2px;
 	background-color:black;
 	width:50%;
 	display:flex;
@@ -16,22 +17,28 @@
 }
 
 .contentSearch{
+	margin-top: 2px;
+	margin-bottom: 2px;
 	background-color:black;
 	width:50%;
 	display:flex;
 	justify-content: flex-end;
 }
+
 .addrSearchButton{
 	border-radius: 0px 7px 7px 0px;
 	background-color:#f3a950;
 	height:35px;
 	width:50px;
 }
+
 .contentSearchButton{
 	border-radius: 0px 7px 7px 0px;
 	background-color:#f3a950;
 	height:35px;
 	width:50px;
+	color:white;
+	font-size:15px;
 }
 
 .addrInput{
@@ -62,6 +69,7 @@ button[id="goback"] {
 </style>
 
 <div class="upperForm">
+
 	<div class="addrSearch" >
 		<form method="post" name="search" action="trainerListSearchAddrTest.jsp">
 			<div class="addrInput">
@@ -79,5 +87,6 @@ button[id="goback"] {
   			</div>
 		</form>
 	</div>
+	
 </div>
 

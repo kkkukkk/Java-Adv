@@ -6,29 +6,31 @@
 	pageEncoding="UTF-8"%>
 	
 <%
-		request.setCharacterEncoding("UTF-8");
-		String user_email = (String) session.getAttribute("user_email");
-		String user_no = (String) session.getAttribute("user_no");
-		if(user_email == null){
-			response.sendRedirect("/Muscle_Gather/user/logintest.jsp");
-			return;
-		}//세션 정보를 확인해서 로그인 상태인지 확인한 후 진입 허용
-		session.setAttribute("user_email", user_email);
-		session.setAttribute("user_no", user_no);
+	request.setCharacterEncoding("UTF-8");
+	String user_email = (String) session.getAttribute("user_email");
+	String user_no = (String) session.getAttribute("user_no");
+	if(user_email == null){
+		response.sendRedirect("/Muscle_Gather/user/logintest.jsp");
+		return;
+	}//세션 정보를 확인해서 로그인 상태인지 확인한 후 진입 허용
+	session.setAttribute("user_email", user_email);
+	session.setAttribute("user_no", user_no);
 %>
 <!DOCTYPE html>
 <html lang="kr">
 <head>
+
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <title>지역 검색 결과</title>
+
     <link type="text/css" rel="stylesheet" href="../css/default.css" />
     <link type="text/css" rel="stylesheet" href="../css/adminMain.css" />
 
     <script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="../js/default.js"></script>
-
 
 </head>
 <body>
@@ -81,7 +83,7 @@
 		
 		//////////////////////////////////////////////페이징///////////////////////////////////////////////////////
 		// 필요 변수들 선언
-		int LINE_PER_PAGE = 12;					//페이지 당 출력 줄수
+		int LINE_PER_PAGE = 15;					//페이지 당 출력 줄수
 		int PAGE_PER_BLOCK = 5;					//블록당 페이지 수
 		
 		int nbr_of_row = 0;						//게시물의 총 수 / 사람의 총 수 / 테이블 전체의 개수

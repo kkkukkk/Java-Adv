@@ -8,8 +8,6 @@
 <%@ page import = "util.FileUtil"%>
 
 
-
-
 <%
 
 request.setCharacterEncoding("utf-8");

@@ -13,15 +13,21 @@
 	session.setAttribute("user_email", user_email);
 	session.setAttribute("user_no", user_no);
 %>
+
 <!DOCTYPE html>
 <html lang="kr">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <title>검색 결과</title>
+
     <link type="text/css" rel="stylesheet" href="../css/default.css" />
 
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+	
     <script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="../js/default.js"></script>
     <script>
@@ -31,9 +37,9 @@
 		var result = confirm("해당 트레이너에게 관심을 보내시겠습니까?")
 		
 		if (result == true){
-			location.href="trainerResume.jsp?trainer_no="+trainer_no+"&gym_no="+gym_no;
+			location.href="trainerResumeTest.jsp?trainer_no="+trainer_no+"&gym_no="+gym_no;
 		}else{
-			alert("취소하였습니다😥");
+			swal("취소하다니!","취소하였습니다😥","error");
 		}
 		
 	}
@@ -60,30 +66,28 @@
     align-items: center;
     display:flex;
     justify-content:center;
-    border: double #f3a950
     }
     
     #map{
-    margin-top:25px;
-    margin-left: 50%;
-    width:40%;
+    margin:auto;
+    width:92%;
     height:450px;
+    margin-top:35px;
+    
     }
     
     #mapbtn{
     margin-top:10px;
-    margin-left: 78%;
-    margin-bottom:20px;
+    margin-left: 73%;
+    margin-bottom:10px;
     }
     
     #infos{
-    margin-left:50%;
-    border-top: double #f3a950;
-    border-left: double #f3a950;
-    border-bottom: double #f3a950;
-    border-right: double #f3a950;
-    margin-right: 130px;
-    align-items:left;
+    margin:auto;
+    margin-top:20px;
+    margin-bottom:20px;
+    width:92%;
+    height:100%;
     }
     
     #endbtn1{
@@ -94,7 +98,6 @@
     color:white;
     font-size: 18px;
     font-weight:bold;
-    margin-bottom:20px;
     }
     
     #endbtn2{
@@ -105,7 +108,6 @@
     color:white;
     font-size: 18px;
     font-weight:bold;
-    margin-bottom:20px;
     }
     
     #marker{
@@ -114,10 +116,11 @@
     }
     
     .content{
-    margin-top: 100px;
+    display:flex;
     }
     
     .endbuttons{
+    margin-top:10px;
 	display:flex;
 	justify-content: center;
     }
@@ -126,24 +129,49 @@
     width:100%;
     margin-left:4px;
     font-weight:bold;
-    margin-bottom:2px;
+    margin-bottom:3px;
     }
     
     .image{
-    border: double #f3a950;
-    height: 150px;
-    width: 250px;
+    margin-left:24px;
+    margin-top:65px;
+    height: 600px;
     }
     
     .wkwkw{
     color:white;
     align-items:center;
     }
+
     
-    #imginfos{
-    display:flex;
-    justify-content:aroundr;
+    #titlesec{
+    height: 100%;
+    min-height: 6vh;
+    border: 1px solid #f3a950;
     }
+    
+    section:nth-child(2n) {
+    background: black;
+	}
+	
+	#imagesec{
+	width:50%;
+	min-height:78vh;
+	border:none;
+	border-right: 1px solid #f3a950;
+	}
+	
+	#infosec{
+	width:50%;
+	border:none;
+	}
+	
+	#btnsec{
+	min-height: 0vh;
+	border:none;
+	margin-bottom:10px;
+	}
+
     </style>
     
 </head>
@@ -168,13 +196,14 @@
 			<main>
 				
 			<div class="mainWrap">
-				<section class="sec1 sec_plus">
+			<section id="titlesec">
 	
 
 	<%!String title = "📖 자세히보기 📚";%>
 		<div class="title">
 			<h2><%=title%></h2>
 		</div>
+	</section>
 		
 	<%
 		String trainer_no = request.getParameter("trainer_no");
@@ -186,23 +215,33 @@
 		String cnt = new TrainerDAO().getResumeCountTrainer(trainer_no);
 	%>
 		
+	
+	<section class="sec1 sec_plus">
 	<div class = "content">
 
-	<div id = "imginfos">
-	<%////////////////////////////사진//////////////////////////
+	<section id = "imagesec">
+	
+	<%
 		if (trainer.getTrainer_images() != null){
 			
 			StringTokenizer st = new StringTokenizer(trainer.getTrainer_images(), "/");	// 매개변수를 2개 입력, 첫번째: 가공할 문자열 / 두번째: 구분자
 			
 			while(st.hasMoreTokens()){	//hasMoreTokens 다음 토큰이 존재하는지 불린타입으로 반환
-	%>		
-			<img src="/images/<%=st.nextToken()%>" style="width:150px; hdeight:250px" class="image">
+	%>
 		
+			<div id=image>
+			<img src="/images/<%=st.nextToken()%>" style="width:96%;" class="image">
+			</div>
+			
 	<%
 		}
 	}
-	////////////////////////////사진//////////////////////////
 	%>
+	
+	</section>
+	
+	<section id="infosec">
+	<div id="infomap">
 		<div id="infos">
 			<div>유저 명 : <%=trainer.getUser_name() %></div>
 			<div>유저 번호 : <%=trainer.getUser_no() %></div>
@@ -213,7 +252,6 @@
 			<div>희망지역 : <%=addr%></div>
 			<div>관심 수 : <%=cnt %></div>
 		</div>
-	</div>
 	
 	
 	<%
@@ -265,23 +303,29 @@
 			
 			        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 			        map.setCenter(coords);
-			    } 
+			    }else{
+			    	swal("","주소가 존재하지 않는 회원입니다 😥","warning");
+			    }
 			});    
 			</script>
 		<%
-			} else{
-		    	out.print("<script>alert('주소가 존재하지 않는 회원입니다 😥')</script>");
-		    }
+			}
 		%>
+		
+	</div>
+	</section>
+	
+	
 
+	</div>
+
+	</section>
+	
+	<section id="btnsec">
 		<div class="endbuttons">
 			<button type="button" id="endbtn1" onclick='work(<%=trainer_no%>,<%=gym_no%>)'>좋아요👍</button>
 			<button type="button" id="endbtn2" onclick="location.href='trainerListTest.jsp'">글 목록</button>
 		</div>
-
-	</div>
-
-	
 	</section>
 
         </div>

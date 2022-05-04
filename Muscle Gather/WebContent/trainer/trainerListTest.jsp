@@ -20,16 +20,18 @@
 <!DOCTYPE html>
 <html lang="kr">
 <head>
+
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <title>트레이너 목록</title>
+
     <link type="text/css" rel="stylesheet" href="../css/default.css" />
     <link type="text/css" rel="stylesheet" href="../css/adminMain.css" />
 
     <script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="../js/default.js"></script>
-
 
 </head>
 <body>
@@ -82,7 +84,7 @@
 		
 		//////////////////////////////////////////////페이징///////////////////////////////////////////////////////
 		// 필요 변수들 선언
-		int LINE_PER_PAGE = 10;					//페이지 당 출력 줄수
+		int LINE_PER_PAGE = 15;					//페이지 당 출력 줄수
 		int PAGE_PER_BLOCK = 5;					//블록당 페이지 수
 		
 		int nbr_of_row = 0;						//게시물의 총 수 / 사람의 총 수 / 테이블 전체의 개수
@@ -160,8 +162,6 @@
 				// 블럭 끝 페이지 번호
 				block_end_page_no = (block_start_page_no + PAGE_PER_BLOCK) - 1;
 				
-				
-				
 				if (block_nbr > 1) {
 					out.print("&nbsp[<a href='trainerListTest.jsp?pageno=1'>" + "처음</a>]&nbsp");
 					
@@ -181,9 +181,9 @@
 					}else {
 						out.print("&nbsp[<a href='trainerListTest.jsp?pageno=" + pgn + "'>" + pgn + "</a>]&nbsp");
 					}
-					
 				
 				}
+				
 				if (block_end_page_no < nbr_of_page) {
 					// 다음 블록 시작 페이지
 					next_block_start_page_no = block_end_page_no + 1;
@@ -191,7 +191,6 @@
 					
 					out.print("&nbsp[<a href='trainerListTest.jsp?pageno=" + nbr_of_page + "'>마지막</a>]&nbsp");
 				}
-				
 				
 				%>
 				</div>
