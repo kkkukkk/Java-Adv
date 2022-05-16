@@ -1,0 +1,516 @@
+@charset "UTF-8";
+
+/* div{
+    margin: 5px;
+    border: 2px solid black;
+} */
+
+input{
+    caret-color:rgb(255, 87, 87);
+}
+
+body{
+    margin: 0;
+}
+
+strong{
+    color: rgb(13, 13, 13);
+    font-weight: bold;
+}
+
+em{
+    margin-right: 10px;
+}
+
+.myPageContentUpperWrapper{
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
+}
+
+.myPageContentUpper{
+    padding:40px 0px 0px;
+    max-width: 1161px;
+    margin:auto;
+}
+
+.myPageContentLower{
+    padding:40px 0px 24px;
+    max-width: 1161px;
+    margin:auto;
+    min-height: 460px;
+}
+
+.myPageContentContainer{
+    margin-top:35px;
+}
+
+.myPageContentMenu{
+    position: relative;
+    display: flex;
+    word-break: keep-all;
+    padding-bottom:1px;
+    font-size:18px;
+}
+
+nav div a{
+    text-decoration: none;
+    color:#848484;
+    margin-right: 2em;
+    font-size: 1em;
+    text-align: left;
+    height: 50px;
+    line-height: 40px;
+    text-decoration: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,.1);
+    letter-spacing: -0.02em;
+}
+
+nav div a.on{
+    color:#000000;
+    font-weight:700;
+}
+
+nav div > span {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 54px;
+    height: 2px;
+    background: rgb(255, 87, 87);
+    opacity: 0;
+    transition: all .5s;
+}
+
+nav div a:nth-child(1).on ~ span { left: 0; opacity: 1;}
+nav div a:nth-child(2).on ~ span { left: 100px; opacity: 1;}
+nav div a:nth-child(3).on ~ span { left: 200px; opacity: 1;}
+nav div a:nth-child(4).on ~ span { left: 300px; opacity: 1;}
+
+
+.myPageContentMenu a:hover{
+    font-weight:bolder;
+}
+
+.myPageContent{
+    height: 2000px;
+
+}
+
+.myPageProfileEntities{
+    display: flex;
+    margin-top:0px;
+    margin-left:24px;
+    max-width: 720px;
+    -webkit-box-pack:center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.myPageProfileButton{
+    margin-left:3px;
+}
+
+.myPageProfileButtons{
+    display:flex;
+    flex-wrap: wrap;
+    -webkit-box-align: center;
+    align-items: center;
+    line-height: 29px;
+    letter-spacing : -0.025em;
+    padding:0px;
+    margin:0px;
+    height: 33px;
+}
+
+.myPageProfileButtonImage{
+    width:26px;
+    height:26px;
+}
+
+
+.myPageProfileName{
+    height:100%;
+    font-weight:bold;
+    font-size:20px;
+}
+
+.myPageProfileDate{
+    height:50%;
+    margin-left: 0px !important;
+}
+
+.myPageProfileInfo{
+    display:flex;
+    align-items: center;
+    font-size: 13px;
+    line-height: 20px;
+    letter-spacing: -0.015em;
+}
+
+.myPageProfileOuterWrapper{
+    display: flex;
+    align-items: center;
+}
+
+.changeProfileImage input+label{
+    cursor: pointer;
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    height: 32px;
+    border-radius: 4px;
+    margin: 0px;
+    outline: none;
+    font-weight: normal;
+    box-sizing: border-box;
+    padding: 0px 12px;
+    border: 1px solid rgb(230, 230, 230);
+    background-color: rgb(255, 255, 255);
+    color: rgb(109, 109, 109);
+    margin-left: 10px;
+}
+
+.changeProfileImage input+label:hover{
+    background-color:rgb(0,0,0,0.1);
+
+}
+
+.changeProfileImage input{
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: 10;
+}
+
+.changeProfileImage{
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: -0.015em;
+    box-sizing: inherit;
+    width: 328px;
+}
+
+.profileImageExplaination{
+    margin: 8px 0px 0px;
+    color: rgb(109, 109, 109);
+    font-size: 13px;
+    line-height: 20px;
+    letter-spacing: -0.015em;
+    margin-left: 10px;
+    font-weight:500;
+}
+
+.myPageProfileImageWrapper{
+    width: 80px;
+    height: 80px;
+}
+
+#profileContentImageContainer{
+    margin-bottom:20px;
+}
+
+.myPageProfileImageBox{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    box-shadow: rgb(208 208 208) 0px 0px 1px 0px inset, rgb(208 208 208) 0px 0px 1px 0px;
+    margin:0;
+}
+
+.myPageProfileImage{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    box-shadow: rgb(208 208 208) 0px 0px 1px 0px inset, rgb(208 208 208) 0px 0px 1px 0px;
+    -webkit-box-pack: center;
+    justify-content: center;
+    color: rgb(255, 255, 255);
+    background-color: rgb(208, 208, 208);
+    font-weight: bold;
+    margin:0;
+    font-size:40px;
+}
+
+.myPageContentLower{
+    min-height:100px;
+    color: rgb(158, 158, 158);
+    font-size: 18px;
+    line-height: 27px;
+    letter-spacing: -0.02em;
+    padding-bottom: 32px;
+    font-weight:bold;
+}
+
+.myPageContentLowerWrapper{
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
+}
+
+.myPageChangeTitle{
+    font-weight: 700;
+    font-size: 32px !important;
+    line-height: 44px !important;
+}
+
+.myPageProfileContentImage{
+    width: 70px;
+    height: 70px;
+    margin-bottom: 30px;
+    fill:rgb(208, 208, 208);
+}
+
+
+.myPageProfileContentWrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 400px;
+    padding: 110px 0px 170px;
+}
+
+.myPageProfileContentHead{
+    display:flex;
+    justify-self: start;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profileLabelButtonSet{
+    display:flex;
+    justify-content: space-between;
+}
+
+.profileToggleBtn{
+    background: transparent;
+    border: 0px;
+    padding: 0px;
+    cursor: pointer;
+    color: rgb(39, 163, 255);
+    font-weight:500;
+    text-decoration: none;
+}
+
+.profileToggleBtn:hover{
+    text-decoration: underline;
+}
+
+.profileInfoContainer{
+    width:60%;
+}
+
+.profileLabel{
+    font-weight: bold;
+    color:black;
+    font-size: 16px;
+    line-height: 27px;
+    letter-spacing: -0.020em;
+    margin-bottom: 8px;
+}
+
+.myProfilePageWrapper{
+    display:flex;
+}
+
+.profileExplanation{
+    width:35%;
+    padding: 20px 24px;
+    border-radius: 4px;
+    border: 1px solid rgb(230, 230, 230);
+    height:105px;
+    margin-left:5%;
+}
+
+.profileExplanationContent{
+    font-size: 11px;
+    line-height: 20px;
+    letter-spacing: -0.020em;
+    margin-top:8px;
+}
+
+.profileSettingForm{
+    border-bottom: 1px solid rgb(230, 230, 230);
+    margin: 0px 0px 16px;
+}
+
+.profileContent{
+    font-size: 12px;
+    line-height: 27px;
+    letter-spacing: -0.020em;
+    margin: 0px 0px 16px;
+}
+
+.profileSmallImageWrapper{
+    margin-top: 8px;
+    margin-bottom: 16px;
+}
+
+.profileSmallImageWrapper > div{
+    width:60px;
+    height:60px;
+}
+
+.profileSmallImageWrapper .myPageProfileImage{
+    font-size:28px;
+}
+
+.profileProjectOpenButton{
+    position:relative;
+    top:2px;
+    left:-3px;
+    accent-color:red;
+}
+
+.openCheckButtonLabel{
+    margin-left:1px;
+}
+
+.changeProfileInfo > input[type='text'] {
+    width: 100%;
+    background: transparent;
+    border: 0px;
+    padding: 11px 0px;
+    box-sizing: border-box;
+    height: 100%;
+    outline: none;
+    margin: 0px;
+    appearance: none !important;
+}
+
+.changeProfileInfo > textarea{
+    width: 100%;
+    background: transparent;
+    padding: 11px 0px;
+    box-sizing: border-box;
+    height: 100%;
+    outline: none;
+    margin: 0px;
+    appearance: none !important;
+    border: none;
+}
+
+.changeProfileInfo{
+    width: 50%;
+    border: 1px solid rgb(230, 230, 230);
+    color: rgb(13, 13, 13);
+    background: rgb(255, 255, 255);
+    padding: 0px 12px;
+    max-height: 44px;
+    min-width: 100px;
+    display: flex;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: -0.015em;
+    -webkit-box-align: center;
+    align-items: center;
+    border-radius: 4px;
+}
+
+.changeProfileSaveButton > button{
+    cursor: pointer;
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    height: 40px;
+    white-space: nowrap;
+    border-radius: 4px;
+    margin: 0px;
+    border: 0px;
+    outline: none;
+    font-weight: normal;
+    box-sizing: border-box;
+    padding: 0px 16px;
+    background-color: rgb(61, 61, 61);
+    color: rgb(255, 255, 255);
+    min-width: 110px;
+    margin-top: 20px;
+}
+
+.changeProfileSaveButton > button:hover{
+    color: rgb(158, 158, 158);
+}
+
+.changeProfileSaveButtonName{
+    font-size: 16px;
+    line-height: 27px;
+    letter-spacing: -0.020em;
+    font-weight: 500;
+}
+
+#profileIntroChange{
+    height: 200px;
+    max-height: 1000px;
+    border: 1px solid rgb(230, 230, 230);
+    border-radius: 4px;
+    padding: 12px;
+    width:95%;
+}
+
+#profileIntroChange1{
+    width: 100%;
+    height: 100%;
+    border: 0px;
+    padding: 0px;
+    resize: none;
+    overflow:auto;
+}
+
+.changeUrlExplain{
+    margin: 8px 0px 0px;
+    color: rgb(109, 109, 109, 0.8);
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: -0.015em;
+}
+
+.changeProfileUrlButton{
+    font-size: 14px;
+    line-height: 27px;
+    letter-spacing: -0.020em;
+    background-color: white;
+    margin-left: 5px;
+    cursor: pointer;
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    height: 44px;
+    white-space: nowrap;
+    border-radius: 4px;
+    margin-left: 10px;
+    outline: 0px;
+    box-sizing: border-box;
+    font-weight: normal;
+    padding: 0px 16px;
+    border: 1px solid rgb(230, 230, 230);
+    background-color: rgb(255, 255, 255);
+    color: rgb(109, 109, 109);
+}
+
+.changeProfileUrlButton:hover{
+    background-color: rgb(0,0,0,0.1);
+}
+
+.changeProfileUrl{
+    display:flex;
+}
+
+.profileProjectOpenCheckForm:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#urlCheck{
+    color: red;
+    opacity: 0.6;
+}
